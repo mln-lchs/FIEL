@@ -85,8 +85,11 @@ class WatsonAssistantService : MonoBehaviour
     }
 
     private void OnResponseReceived(DetailedResponse<MessageResponse> response, IBMError error)
-    {        
-        m_ResultsTextUI.text = response.Result.Output.Generic[0].Text;
+    {
+        if (response.Result.Output.Generic.Count > 0)
+        {
+            m_ResultsTextUI.text = response.Result.Output.Generic[0].Text;
+        }
     }
 }
 

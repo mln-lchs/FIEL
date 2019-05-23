@@ -75981,8 +75981,8 @@ MonoBehaviour:
   onHandClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238539704}
-        m_MethodName: StartRecording
+      - m_Target: {fileID: 330919808}
+        m_MethodName: OnRecordButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
