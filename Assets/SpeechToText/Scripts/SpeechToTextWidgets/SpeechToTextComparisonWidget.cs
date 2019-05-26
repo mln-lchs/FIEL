@@ -26,15 +26,15 @@ namespace UnitySpeechToText.Widgets
         [SerializeField]
         string m_NotRecordingText;
         /// <summary>
-        /// Store for RecordingButtonColor property
+        /// Store for RecordingButtonMaterial property
         /// </summary>
         [SerializeField]
-        Color m_RecordingButtonColor = Color.red;
+        Material m_RecordingButtonMaterial;
         /// <summary>
-        /// Store for NotRecordingButtonColor property
+        /// Store for NotRecordingButtonMaterial property
         /// </summary>
         [SerializeField]
-        Color m_NotRecordingButtonColor = Color.white;
+        Material m_NotRecordingButtonMaterial;
         /// <summary>
         /// Store for WaitingForResponsesText property
         /// </summary>
@@ -92,13 +92,13 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         public string NotRecordingText { set { m_NotRecordingText = value; } }
         /// <summary>
-        /// Color of the record button when recording
+        /// Material of the record button when recording
         /// </summary>
-        public Color RecordingButtonColor { set { m_RecordingButtonColor = value; } }
+        public Material RecordingButtonMaterial { set { m_RecordingButtonMaterial = value; } }
         /// <summary>
-        /// Color of the record button when not recording
+        /// Material of the record button when not recording
         /// </summary>
-        public Color NotRecordingButtonColor { set { m_NotRecordingButtonColor = value; } }
+        public Material NotRecordingButtonMaterial { set { m_NotRecordingButtonMaterial = value; } }
         /// <summary>
         /// Text to display on the record button when waiting for responses
         /// </summary>
@@ -158,7 +158,7 @@ namespace UnitySpeechToText.Widgets
             if (m_RecordButton != null)
             {
                 m_RecordButtonTextUI = m_RecordButton.GetComponentInChildren<Text>();
-                m_RecordButtonImage = m_RecordButton.GetComponent<Image>();
+                m_RecordButtonImage = m_RecordButton.GetComponentInChildren<Image>();
             }
         }
 
@@ -246,7 +246,7 @@ namespace UnitySpeechToText.Widgets
                 m_IsCurrentlyInSpeechToTextSession = true;
                 m_IsRecording = true;
                 m_RecordButtonTextUI.text = m_RecordingText;
-                m_RecordButtonImage.color = m_RecordingButtonColor;
+                m_RecordButtonImage.material = m_RecordingButtonMaterial;
                 m_WaitingSpeechToTextServiceWidgets.Clear();
                 foreach (var serviceWidget in m_SpeechToTextServiceWidgets)
                 {
@@ -269,7 +269,7 @@ namespace UnitySpeechToText.Widgets
 
                 // Disable all UI interaction until all responses have been received or after the specified timeout.
                 DisableAllUIInteraction();
-                m_RecordButtonImage.color = m_NotRecordingButtonColor;
+                m_RecordButtonImage.material = m_NotRecordingButtonMaterial;
                 Invoke("FinishComparisonSession", m_ResponsesTimeoutInSeconds);
 
                 // If a phrase is selected, pass it to the SpeechToTextServiceWidget.
@@ -309,7 +309,7 @@ namespace UnitySpeechToText.Widgets
         void EnableAllUIInteraction()
         {
             m_speakManager.SetInteractable(true);
-            m_RecordButton.interactable = true;
+            //m_RecordButton.interactable = true;
             m_RecordButtonTextUI.text = m_NotRecordingText;
             /**foreach (var toggle in m_PhrasesToggleGroup.GetComponentsInChildren<Toggle>(true))
             {
@@ -323,7 +323,7 @@ namespace UnitySpeechToText.Widgets
         void DisableAllUIInteraction()
         {
             m_speakManager.SetInteractable(false);
-            m_RecordButton.interactable = false;
+            //m_RecordButton.interactable = false;
             m_RecordButtonTextUI.text = m_WaitingForResponsesText;
             
         }

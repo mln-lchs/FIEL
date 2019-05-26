@@ -34,6 +34,17 @@ class WatsonAssistantService : MonoBehaviour
     [SerializeField]
     Text m_ResultsTextUI;
 
+    [SerializeField]
+    Canvas m_ResultsCanvas;
+
+    [SerializeField]
+    private float m_CanvasTimeOut = 20f;
+
+    private float m_Timer = 0f;
+
+    
+    
+
     public string IAMUrl { set { m_IAMUrl = value; } }
     
     public string IAMKey { set { m_IAMKey = value; } }
@@ -46,6 +57,20 @@ class WatsonAssistantService : MonoBehaviour
     protected void Start()
     {
         StartCoroutine(TokenInit());
+        m_Timer = 0f;
+        m_ResultsCanvas.enabled = false;
+    }
+
+    private void Update()
+    {
+        if (m_Timer > 0)
+        {
+            m_Timer -= Time.deltaTime;
+        } else
+        {
+            m_ResultsCanvas.enabled = false;
+        }
+        
     }
 
     private void OnSessionCreated(DetailedResponse<SessionResponse> response, IBMError error)
@@ -76,7 +101,7 @@ class WatsonAssistantService : MonoBehaviour
         m_Assistant.CreateSession(OnSessionCreated, m_AssistantId);
     }
 
-    public void SendMessage(string text)
+    public void SendMessageToAssistant(string text)
     {
         MessageInput input = new MessageInput()
         {
@@ -89,7 +114,10 @@ class WatsonAssistantService : MonoBehaviour
     {
         if (response.Result.Output.Generic.Count > 0)
         {
-            m_ResultsTextUI.text = response.Result.Output.Generic[0].Text;
+            string text = response.Result.Output.Generic[0].Text;
+            m_Timer = m_CanvasTimeOut;
+            m_ResultsCanvas.enabled = true;
+            m_ResultsTextUI.text = text;
         }
     }
 }

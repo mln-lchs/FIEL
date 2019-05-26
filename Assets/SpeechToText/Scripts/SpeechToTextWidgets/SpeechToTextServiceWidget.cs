@@ -59,6 +59,7 @@ namespace UnitySpeechToText.Widgets
         Canvas m_LeftHandUI;
 
         WatsonAssistantService m_WatsonAssistant;
+        Transform m_NPCTransform;
         /// <summary>
         /// Combined top and bottom padding for results text
         /// </summary>
@@ -193,6 +194,7 @@ namespace UnitySpeechToText.Widgets
             RegisterSpeechToTextServiceCallbacks();
             m_Timer = m_LookAwayTimer;
             DisableSpeechUI();
+            m_NPCTransform = m_Camera.transform;
         }
 
         /// <summary>
@@ -207,29 +209,29 @@ namespace UnitySpeechToText.Widgets
             // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
             layerMask = ~layerMask;
 
-            if (m_Timer > 0)
+            float dist = Vector3.Distance(m_Camera.transform.position, m_NPCTransform.position);
+            if (m_Timer > 0 && dist <= m_RayDistance)
             {
                 m_Timer -= Time.deltaTime;
+            } else
+            {
+                //m_WatsonAssistant = null;
+                DisableSpeechUI();
             }
 
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
             if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.TransformDirection(Vector3.forward), out hit, m_RayDistance, layerMask))
             {
+
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                 if (hit.collider.gameObject.layer == 9)
                 {
                     m_WatsonAssistant = hit.collider.GetComponentInChildren<WatsonAssistantService>();
+                    m_NPCTransform = hit.collider.transform;
                     m_Timer = m_LookAwayTimer;
                     EnableSpeechUI();
                 } 
-            } else
-            {
-                if (m_Timer <= 0f)
-                {
-                    m_WatsonAssistant = null;
-                    DisableSpeechUI();
-                }
             }
         }
 
@@ -342,7 +344,7 @@ namespace UnitySpeechToText.Widgets
                     m_ResultsTextUI.color = m_FinalTextResultColor;
                     m_ResultsTextUI.text = m_PreviousFinalResults;
                     Debug.Log(m_PreviousFinalResults);
-                    m_WatsonAssistant.SendMessage(m_PreviousFinalResults);
+                    m_WatsonAssistant.SendMessageToAssistant(m_PreviousFinalResults);
                     SmartLogger.Log(DebugFlags.SpeechToTextWidgets, m_SpeechToTextService.GetType().ToString() + " final result");
                     if (m_WaitingForLastFinalResultOfSession)
                     {
