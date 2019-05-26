@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86f7fb3ea5bac04a857e5f4a0b30077, type: 3}
+  m_Name: GlovesHiderMeshH
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 11400000, guid: 4755d55edbb90be4f9de4b4081105c55, type: 2}
+  _serializedFlags:
+  - flags: 0000000000feffff7ffeffffffffffffffffffff1c000000000000000000c0fd0000000000000000000000000000e003000000001800000000e0feffffff070000000030fe1a00000000c0fffff7fffffbfffffff70100000000000080fbffffffffffffff3d000030000000000000000000d771a80100000000000000000600000000e1ff0000000080ff79ce000000
+    Count: 1128

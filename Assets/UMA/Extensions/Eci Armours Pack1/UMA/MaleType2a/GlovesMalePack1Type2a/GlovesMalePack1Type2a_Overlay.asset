@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4834e6077abe64e968f9f87c9ac70a, type: 3}
+  m_Name: GlovesMalePack1Type2a_Overlay
+  m_EditorClassIdentifier: 
+  overlayName: GlovesMalePack1Type2a_Overlay
+  overlayType: 0
+  rect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  alphaMask: {fileID: 0}
+  textureList:
+  - {fileID: 2800000, guid: 60fe1b4ad9d9bc14b8b7b47c507fcde1, type: 3}
+  - {fileID: 2800000, guid: 31d33c6be6f11d4408374aad0fe3810d, type: 3}
+  - {fileID: 2800000, guid: 0c726e9c922192045aff7fb09e29fce9, type: 3}
+  tags: []
+  material: {fileID: 11400000, guid: 6d46e0f01b9753044ab061023497e69b, type: 2}
+  OcclusionEntries: []

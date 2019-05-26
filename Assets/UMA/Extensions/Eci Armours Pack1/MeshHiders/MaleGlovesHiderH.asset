@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86f7fb3ea5bac04a857e5f4a0b30077, type: 3}
+  m_Name: MaleGlovesHiderH
+  m_EditorClassIdentifier: 
+  _asset: {fileID: 11400000, guid: 881f10d72572db34cb1150ac3df21a97, type: 2}
+  _serializedFlags:
+  - flags: 000000807ffeffffffffffffffff3f00400700000081ff17c01f0000000000000000000080ffffffffe7110000000000000088ffffffffffff0000fe00000000f1ffffffff03000000e0ffffffffffffffffff1b070001000000e2ffffffffffffffffffff05000000000000000000000000fe3fff050e00000000000000efff000000c0c11f00a0ffffffc1f0000000
+    Count: 1128
