@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnitySpeechToText.Services;
@@ -206,6 +207,8 @@ namespace UnitySpeechToText.Widgets
                 m_MinScrollViewContentHeight = m_ScrollViewContentRect.rect.height;
                 m_ReadyToFitScrollViewContentToText = true;
             }*/
+
+
         }
 
         /// <summary>
@@ -341,6 +344,7 @@ namespace UnitySpeechToText.Widgets
                     m_PreviousFinalResults += result.TextAlternatives[0].Text;
                     m_ResultsTextUI.color = m_FinalTextResultColor;
                     m_ResultsTextUI.text = m_PreviousFinalResults;
+                    Debug.Log(m_PreviousFinalResults);
                     m_WatsonAssistant.SendMessage(m_PreviousFinalResults);
                     SmartLogger.Log(DebugFlags.SpeechToTextWidgets, m_SpeechToTextService.GetType().ToString() + " final result");
                     if (m_WaitingForLastFinalResultOfSession)

@@ -3,6 +3,7 @@ using System.Collections;
 using IBM.Cloud.SDK;
 using IBM.Watson.Assistant.V2;
 using IBM.Watson.Assistant.V2.Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

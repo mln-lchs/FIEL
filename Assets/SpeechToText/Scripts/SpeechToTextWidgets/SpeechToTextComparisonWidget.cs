@@ -53,16 +53,21 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Store for RecordButton property
         /// </summary>
-        [SerializeField]
-        Button m_RecordButton;
+        //[SerializeField]
+        //Button m_RecordButton;
         /// <summary>
         /// Text UI for the record button
         /// </summary>
+        [SerializeField]
         Text m_RecordButtonTextUI;
         /// <summary>
         /// Image for the record button
         /// </summary>
+        [SerializeField]
         Image m_RecordButtonImage;
+
+        [SerializeField]
+        SpeakManager m_speakManager;
         /// <summary>
         /// Whether the application is currently in a speech-to-text session
         /// </summary>
@@ -124,8 +129,8 @@ namespace UnitySpeechToText.Widgets
         {
             set
             {
-                m_RecordButton = value;
-                SetRecordButtonChildComponents();
+                //m_RecordButton = value;
+                //SetRecordButtonChildComponents();
             }
         }
 
@@ -135,7 +140,7 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void Start()
         {
-            SetRecordButtonChildComponents();
+            //SetRecordButtonChildComponents();
             RegisterSpeechToTextServiceWidgetsCallbacks();
         }
 
@@ -150,14 +155,14 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Finds child components for the record button and assigns them to the appropriate member variables.
         /// </summary>
-        void SetRecordButtonChildComponents()
+        /**void SetRecordButtonChildComponents()
         {
             if (m_RecordButton != null)
             {
                 m_RecordButtonTextUI = m_RecordButton.GetComponentInChildren<Text>();
                 m_RecordButtonImage = m_RecordButton.GetComponent<Image>();
             }
-        }
+        }*/
 
         /// <summary>
         /// Registers callbacks with each SpeechToTextServiceWidget.
@@ -235,7 +240,7 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Starts recording audio for each speech-to-text service widget if not already recording.
         /// </summary>
-        void StartRecording()
+        public void StartRecording()
         {
             if (!m_IsRecording)
             {
@@ -258,7 +263,7 @@ namespace UnitySpeechToText.Widgets
         /// Stops recording audio for each speech-to-text service widget if already recording. Also schedules a wrap-up of the
         /// current comparison session to happen after the responses timeout.
         /// </summary>
-        void StopRecording()
+        public void StopRecording()
         {
             if (m_IsRecording)
             {
@@ -305,7 +310,7 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void EnableAllUIInteraction()
         {
-            m_RecordButton.interactable = true;
+            m_speakManager.SetInteractable(true);
             m_RecordButtonTextUI.text = m_NotRecordingText;
             /**foreach (var toggle in m_PhrasesToggleGroup.GetComponentsInChildren<Toggle>(true))
             {
@@ -318,7 +323,7 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void DisableAllUIInteraction()
         {
-            m_RecordButton.interactable = false;
+            m_speakManager.SetInteractable(false);
             m_RecordButtonTextUI.text = m_WaitingForResponsesText;
             
         }
