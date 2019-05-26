@@ -34,11 +34,6 @@ namespace UnitySpeechToText.Widgets
         [SerializeField]
         SpeechToTextService m_SpeechToTextService;
         /// <summary>
-        /// Store for ResultsScrollRect property
-        /// </summary>
-        [SerializeField]
-        ScrollRect m_ResultsScrollRect;
-        /// <summary>
         /// Rectangle transform for the results scroll view content
         /// </summary>
         RectTransform m_ScrollViewContentRect;
@@ -49,6 +44,20 @@ namespace UnitySpeechToText.Widgets
         Text m_ResultsTextUI;
 
         [SerializeField]
+        Camera m_Camera;
+
+        [SerializeField]
+        float m_RayDistance = 3f;
+
+        [SerializeField]
+        float m_LookAwayTimer = 10f;
+
+        [SerializeField]
+        Canvas m_RightHandUI;
+
+        [SerializeField]
+        Canvas m_LeftHandUI;
+
         WatsonAssistantService m_WatsonAssistant;
         /// <summary>
         /// Combined top and bottom padding for results text
@@ -107,6 +116,9 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         Action<SpeechToTextServiceWidget> m_OnReceivedLastResponse;
 
+        private float m_Timer;
+
+
         /// <summary>
         /// Color to use for interim text results
         /// </summary>
@@ -132,17 +144,7 @@ namespace UnitySpeechToText.Widgets
             }
         }
 
-        /// <summary>
-        /// Scroll rectangle containing text results
-        /// </summary>
-        public ScrollRect ResultsScrollRect
-        {
-            set
-            {
-                m_ResultsScrollRect = value;
-                //SetResultsScrollRectChildComponents();
-            }
-        }
+        
 
         /// <summary>
         /// Adds a function to the recording timeout delegate.
@@ -189,7 +191,8 @@ namespace UnitySpeechToText.Widgets
         void Start()
         {
             RegisterSpeechToTextServiceCallbacks();
-            //SetResultsScrollRectChildComponents();
+            m_Timer = m_LookAwayTimer;
+            DisableSpeechUI();
         }
 
         /// <summary>
@@ -197,18 +200,49 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void Update()
         {
-            // The scroll view content dimensions are not calculated upon initialization so Update must check for this.
-            /**if (m_ReadyToFitScrollViewContentToText)
+            // Bit shift the index of the layer (8) to get a bit mask
+            int layerMask = 1 << 8;
+
+            // This would cast rays only against colliders in layer 8.
+            // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+            layerMask = ~layerMask;
+
+            if (m_Timer > 0)
             {
-                FitScrollViewContentToText();
+                m_Timer -= Time.deltaTime;
             }
-            else if (m_ScrollViewContentRect != null && m_ScrollViewContentRect.rect.height > 0)
+
+            RaycastHit hit;
+            // Does the ray intersect any objects excluding the player layer
+            if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.TransformDirection(Vector3.forward), out hit, m_RayDistance, layerMask))
             {
-                m_MinScrollViewContentHeight = m_ScrollViewContentRect.rect.height;
-                m_ReadyToFitScrollViewContentToText = true;
-            }*/
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                if (hit.collider.gameObject.layer == 9)
+                {
+                    m_WatsonAssistant = hit.collider.GetComponentInChildren<WatsonAssistantService>();
+                    m_Timer = m_LookAwayTimer;
+                    EnableSpeechUI();
+                } 
+            } else
+            {
+                if (m_Timer <= 0f)
+                {
+                    m_WatsonAssistant = null;
+                    DisableSpeechUI();
+                }
+            }
+        }
 
+        void EnableSpeechUI()
+        {
+            m_RightHandUI.enabled = true;
+            m_LeftHandUI.enabled = true;
+        }
 
+        void DisableSpeechUI()
+        {
+            m_RightHandUI.enabled = false;
+            m_LeftHandUI.enabled = false;
         }
 
         /// <summary>
@@ -219,26 +253,7 @@ namespace UnitySpeechToText.Widgets
             UnregisterSpeechToTextServiceCallbacks();
         }
 
-        /// <summary>
-        /// Finds child components for the results scroll rect and assigns them to the appropriate member variables.
-        /// Also determines additional text UI member variables.
-        /// </summary>
-        void SetResultsScrollRectChildComponents()
-        {
-            if (m_ResultsScrollRect != null)
-            {
-                Transform contentTransform = m_ResultsScrollRect.GetComponent<RectTransform>().Find("Viewport/Content");
-                m_ScrollViewContentRect = contentTransform.GetComponent<RectTransform>();
-                m_ResultsTextUI = m_ScrollViewContentRect.GetComponentInChildren<Text>();
-
-                // Determine the vertical text padding and line height upon initialization
-                // so that the scroll view content rectangle can later be resized based on these.
-                m_VerticalTextPadding = m_ScrollViewContentRect.rect.height *
-                    (m_ResultsTextUI.rectTransform.anchorMin.y + 1 - m_ResultsTextUI.rectTransform.anchorMax.y);
-                m_TextLineHeight = LayoutUtility.GetPreferredHeight(m_ResultsTextUI.rectTransform);
-            }
-        }
-
+       
         /// <summary>
         /// Registers callbacks with the SpeechToTextService.
         /// </summary>
@@ -274,25 +289,7 @@ namespace UnitySpeechToText.Widgets
             return m_SpeechToTextService.GetType().ToString();
         }
 
-        /// <summary>
-        /// Resizes the scroll view content rectangle so that it can fit the results text.
-        /// </summary>
-        void FitScrollViewContentToText()
-        {
-            float textHeight = LayoutUtility.GetPreferredHeight(m_ResultsTextUI.rectTransform);
-            float parentHeight = m_ScrollViewContentRect.rect.height;
-            if (textHeight + m_VerticalTextPadding >= parentHeight)
-            {
-                m_ScrollViewContentRect.offsetMin = new Vector2(m_ScrollViewContentRect.offsetMin.x, m_ScrollViewContentRect.offsetMin.y - m_TextLineHeight);
-                m_ResultsScrollRect.verticalNormalizedPosition = 0;
-            }
-            else if (textHeight + m_VerticalTextPadding < parentHeight - m_TextLineHeight && parentHeight - m_TextLineHeight >= m_MinScrollViewContentHeight)
-            {
-                m_ScrollViewContentRect.offsetMin = new Vector2(m_ScrollViewContentRect.offsetMin.x, m_ScrollViewContentRect.offsetMin.y + m_TextLineHeight);
-                m_ResultsScrollRect.verticalNormalizedPosition = 0;
-            }
-        }
-
+        
         /// <summary>
         /// Clears the current results text and tells the speech-to-text service to start recording.
         /// </summary>

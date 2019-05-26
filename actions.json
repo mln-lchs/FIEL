@@ -41,11 +41,7 @@
       "requirement": "optional"
     },
     {
-      "name": "/actions/default/in/SpeakToRobot",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/default/in/SpeakToNPC",
+      "name": "/actions/default/in/Speak",
       "type": "boolean"
     },
     {
@@ -151,8 +147,7 @@
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/out/Haptic": "Haptic",
       "/actions/platformer/in/Jump": "Jump",
-      "/actions/default/in/SpeakToRobot": "Speak To Robot",
-      "/actions/default/in/SpeakToNPC": "Speak To NPC"
+      "/actions/default/in/Speak": "Speak"
     }
   ]
 }

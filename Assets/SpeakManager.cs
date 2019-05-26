@@ -7,9 +7,9 @@ using Valve.VR;
 public class SpeakManager : MonoBehaviour
 {
     public SteamVR_Input_Sources handType;
-    public SteamVR_Action_Boolean speakToRobot;
+    public SteamVR_Action_Boolean speak;
 
-    public SpeechToTextComparisonWidget STTServiceRobot;
+    public SpeechToTextComparisonWidget STTWidget;
 
     bool m_isInteractable;
     // Start is called before the first frame update
@@ -24,9 +24,9 @@ public class SpeakManager : MonoBehaviour
 
         if (m_isInteractable)
         {
-            if (speakToRobot.GetStateDown(handType))
+            if (speak.GetStateDown(handType))
             {
-                STTServiceRobot.OnRecordButtonClicked();
+                STTWidget.OnRecordButtonClicked();
             }
             
         }

@@ -53,17 +53,15 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Store for RecordButton property
         /// </summary>
-        //[SerializeField]
-        //Button m_RecordButton;
+        [SerializeField]
+        Button m_RecordButton;
         /// <summary>
         /// Text UI for the record button
         /// </summary>
-        [SerializeField]
         Text m_RecordButtonTextUI;
         /// <summary>
         /// Image for the record button
         /// </summary>
-        [SerializeField]
         Image m_RecordButtonImage;
 
         [SerializeField]
@@ -129,8 +127,8 @@ namespace UnitySpeechToText.Widgets
         {
             set
             {
-                //m_RecordButton = value;
-                //SetRecordButtonChildComponents();
+                m_RecordButton = value;
+                SetRecordButtonChildComponents();
             }
         }
 
@@ -140,7 +138,7 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void Start()
         {
-            //SetRecordButtonChildComponents();
+            SetRecordButtonChildComponents();
             RegisterSpeechToTextServiceWidgetsCallbacks();
         }
 
@@ -155,14 +153,14 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Finds child components for the record button and assigns them to the appropriate member variables.
         /// </summary>
-        /**void SetRecordButtonChildComponents()
+        void SetRecordButtonChildComponents()
         {
             if (m_RecordButton != null)
             {
                 m_RecordButtonTextUI = m_RecordButton.GetComponentInChildren<Text>();
                 m_RecordButtonImage = m_RecordButton.GetComponent<Image>();
             }
-        }*/
+        }
 
         /// <summary>
         /// Registers callbacks with each SpeechToTextServiceWidget.
@@ -311,6 +309,7 @@ namespace UnitySpeechToText.Widgets
         void EnableAllUIInteraction()
         {
             m_speakManager.SetInteractable(true);
+            m_RecordButton.interactable = true;
             m_RecordButtonTextUI.text = m_NotRecordingText;
             /**foreach (var toggle in m_PhrasesToggleGroup.GetComponentsInChildren<Toggle>(true))
             {
@@ -324,6 +323,7 @@ namespace UnitySpeechToText.Widgets
         void DisableAllUIInteraction()
         {
             m_speakManager.SetInteractable(false);
+            m_RecordButton.interactable = false;
             m_RecordButtonTextUI.text = m_WaitingForResponsesText;
             
         }

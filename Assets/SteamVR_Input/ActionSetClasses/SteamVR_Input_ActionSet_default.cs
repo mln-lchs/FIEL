@@ -89,19 +89,11 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean SpeakToRobot
+        public virtual SteamVR_Action_Boolean Speak
         {
             get
             {
-                return SteamVR_Actions.default_SpeakToRobot;
-            }
-        }
-        
-        public virtual SteamVR_Action_Boolean SpeakToNPC
-        {
-            get
-            {
-                return SteamVR_Actions.default_SpeakToNPC;
+                return SteamVR_Actions.default_Speak;
             }
         }
         
