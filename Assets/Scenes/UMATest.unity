@@ -528,6 +528,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 879538282}
     m_Modifications:
+    - target: {fileID: 114358, guid: e4c9215b3e1d0b841900ba25c3907b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 22401206, guid: e4c9215b3e1d0b841900ba25c3907b6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -656,7 +660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &269104742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1446,7 +1450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1545467458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,7 +1664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1875296714
 Transform:
   m_ObjectHideFlags: 0
@@ -1707,7 +1711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1884177990
 MonoBehaviour:
   m_ObjectHideFlags: 0
