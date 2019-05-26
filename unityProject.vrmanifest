@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.testhtcvr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Etudiant\\VRprojects\\testHTCVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\etudiant.LABORATOIRE\\Documents\\VR\\FIEL\\actions.json",
       "strings": {
         "en_us": {
           "name": "testHTCVR [Testing]"

@@ -89,6 +89,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean Speak
+        {
+            get
+            {
+                return SteamVR_Actions.default_Speak;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get
