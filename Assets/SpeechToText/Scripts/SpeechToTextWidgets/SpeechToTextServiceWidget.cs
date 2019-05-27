@@ -209,7 +209,7 @@ namespace UnitySpeechToText.Widgets
             // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
             layerMask = ~layerMask;
 
-            float dist = Vector3.Distance(m_Camera.transform.position, m_NPCTransform.position);
+            float dist = Vector2.Distance(new Vector2(m_Camera.transform.position.x, m_Camera.transform.position.z), new Vector2(m_NPCTransform.position.x, m_NPCTransform.position.z));
             if (m_Timer > 0 && dist <= m_RayDistance)
             {
                 m_Timer -= Time.deltaTime;
