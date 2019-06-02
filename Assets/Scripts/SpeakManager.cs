@@ -11,6 +11,8 @@ public class SpeakManager : MonoBehaviour
 
     public SpeechToTextComparisonWidget STTWidget;
 
+    public KeyCode keyboardShortcut;
+
     bool m_isInteractable;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class SpeakManager : MonoBehaviour
 
         if (m_isInteractable)
         {
-            if (speak.GetStateDown(handType))
+            if (speak.GetStateDown(handType) || Input.GetKeyDown(keyboardShortcut))
             {
                 STTWidget.OnRecordButtonClicked();
             }

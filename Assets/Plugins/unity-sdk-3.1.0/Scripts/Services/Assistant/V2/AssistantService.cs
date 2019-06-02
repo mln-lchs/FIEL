@@ -340,7 +340,7 @@ namespace IBM.Watson.Assistant.V2
             req.Send = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(bodyObject));
 
             req.OnResponse = OnMessageResponse;
-
+            
             RESTConnector connector = RESTConnector.GetConnector(Credentials, string.Format("/v2/assistants/{0}/sessions/{1}/message", assistantId, sessionId));
             if (connector == null)
             {
@@ -358,7 +358,6 @@ namespace IBM.Watson.Assistant.V2
                 response.Headers.Add(kvp.Key, kvp.Value);
             }
             response.StatusCode = resp.HttpResponseCode;
-            Debug.Log(resp.Data);
             try
             {
                 string json = Encoding.UTF8.GetString(resp.Data);

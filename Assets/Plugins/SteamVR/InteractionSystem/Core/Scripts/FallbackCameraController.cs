@@ -32,7 +32,7 @@ namespace Valve.VR.InteractionSystem
 		void Update()
 		{
 			float forward = 0.0f;
-			if ( Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.UpArrow ) )
+			if ( Input.GetKey( KeyCode.Z ) || Input.GetKey( KeyCode.UpArrow ) )
 			{
 				forward += 1.0f;
 			}
@@ -46,7 +46,7 @@ namespace Valve.VR.InteractionSystem
 			{
 				right += 1.0f;
 			}
-			if ( Input.GetKey( KeyCode.A ) || Input.GetKey( KeyCode.LeftArrow ) )
+			if ( Input.GetKey( KeyCode.Q ) || Input.GetKey( KeyCode.LeftArrow ) )
 			{
 				right -= 1.0f;
 			}
@@ -87,7 +87,7 @@ namespace Valve.VR.InteractionSystem
 			if ( showInstructions )
 			{
 				GUI.Label( new Rect( 10.0f, 10.0f, 600.0f, 400.0f ),
-					"WASD/Arrow Keys to translate the camera\n" +
+					"ZQSD/Arrow Keys to translate the camera\n" +
 					"Right mouse click to rotate the camera\n" +
 					"Left mouse click for standard interactions.\n" );
 			}

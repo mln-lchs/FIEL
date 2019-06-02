@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnitySpeechToText.Services;
 using UnitySpeechToText.Utilities;
+using Valve.VR;
 
 namespace UnitySpeechToText.Widgets
 {
@@ -36,15 +37,8 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Rectangle transform for the results scroll view content
         /// </summary>
-        RectTransform m_ScrollViewContentRect;
-        /// <summary>
-        /// Text UI for speech-to-text results
-        /// </summary>
-        [SerializeField]
-        Text m_ResultsTextUI;
-
-        [SerializeField]
-        Camera m_Camera;
+        RectTransform m_ScrollViewContentRect; 
+      
 
         [SerializeField]
         float m_RayDistance = 3f;
@@ -58,7 +52,22 @@ namespace UnitySpeechToText.Widgets
         [SerializeField]
         Canvas m_LeftHandUI;
 
+        [Header("Fallbacks Hands UI")]
+        [SerializeField]
+        Canvas m_FallbackRightHandUI;
+
+        [SerializeField]
+        Canvas m_FallbackLeftHandUI;
+
+        /// <summary>
+        /// Text UI for speech-to-text results
+        /// </summary>
+        Text m_ResultsTextUI;
+
+        Camera m_Camera;
+
         WatsonAssistantService m_WatsonAssistant;
+
         Transform m_NPCTransform;
         /// <summary>
         /// Combined top and bottom padding for results text
@@ -192,9 +201,20 @@ namespace UnitySpeechToText.Widgets
         void Start()
         {
             RegisterSpeechToTextServiceCallbacks();
+            
             m_Timer = m_LookAwayTimer;
-            DisableSpeechUI();
+
+            m_Camera = Camera.main;
             m_NPCTransform = m_Camera.transform;
+            
+
+            if (SteamVR.instance == null)
+            {
+                m_RightHandUI = m_FallbackRightHandUI;
+                m_LeftHandUI = m_FallbackLeftHandUI;
+            }
+            m_ResultsTextUI = m_RightHandUI.GetComponentInChildren<Text>();
+            DisableSpeechUI();
         }
 
         /// <summary>
@@ -344,13 +364,13 @@ namespace UnitySpeechToText.Widgets
                     m_ResultsTextUI.color = m_FinalTextResultColor;
                     m_ResultsTextUI.text = m_PreviousFinalResults;
                     Debug.Log(m_PreviousFinalResults);
-                    m_WatsonAssistant.SendMessageToAssistant(m_PreviousFinalResults);
                     SmartLogger.Log(DebugFlags.SpeechToTextWidgets, m_SpeechToTextService.GetType().ToString() + " final result");
                     if (m_WaitingForLastFinalResultOfSession)
                     {
                         m_WaitingForLastFinalResultOfSession = false;
                         ProcessEndResults();
                     }
+                    m_WatsonAssistant.SendMessageToAssistant(m_PreviousFinalResults);
                 }
                 else
                 {
@@ -376,6 +396,7 @@ namespace UnitySpeechToText.Widgets
             {
                 m_OnReceivedLastResponse(this);
             }
+            
             m_WillDisplayReceivedResults = false;
         }
 
