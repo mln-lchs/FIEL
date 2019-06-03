@@ -170,10 +170,10 @@ class WatsonAssistantService : MonoBehaviour
             string text = response.Result.Output.Generic[0].Text;
             m_Timer = m_CanvasTimeOut;
             m_ResultsCanvas.enabled = true;
-
-            if (GetComponent<TTSScript>() != null)
+            TTSScript tts = GetComponent<TTSScript>();
+            if (tts != null && tts.enabled)
             {
-                StartCoroutine(GetComponent<TTSScript>().CallTextToSpeech(text));
+                StartCoroutine(tts.CallTextToSpeech(text));
             }
 
             
