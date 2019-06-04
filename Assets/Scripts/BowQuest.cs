@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public class BowQuest : MonoBehaviour
 {
-    private const int BULLSEYE_REQUIRED = 5;
+    [SerializeField] int BULLSEYE_REQUIRED = 2;
     private int bullseyeHit;
-    private bool distanceOk;
+    private bool distanceOk = false;
     private bool cleared;
 
     // Start is called before the first frame update
@@ -19,11 +19,11 @@ public class BowQuest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        //8 PlayerLayer
+        if (other.gameObject.layer == 8)
         {
             distanceOk = true;
-        }
-        
+        }        
     }
 
     private void OnTriggerExit(Collider other)
@@ -36,6 +36,7 @@ public class BowQuest : MonoBehaviour
 
     public void HitBullseye()
     {
+        Debug.Log("coucou");
         if (distanceOk)
         {
             bullseyeHit++;
