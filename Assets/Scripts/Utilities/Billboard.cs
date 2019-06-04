@@ -27,7 +27,7 @@ namespace HoloToolkit.Unity
         [Tooltip("Specifies the target we will orient to. If no Target is specified the main camera will be used.")]
         public Transform TargetTransform;
 
-        private void OnEnable()
+        private void Start()
         {
             if (TargetTransform == null)
             {

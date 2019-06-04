@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnitySpeechToText.Utilities;
+using Valve.VR;
 
 namespace UnitySpeechToText.Widgets
 {
@@ -55,6 +56,10 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         [SerializeField]
         Button m_RecordButton;
+
+        [SerializeField]
+        Button m_FallbackRecordButton;
+
         /// <summary>
         /// Text UI for the record button
         /// </summary>
@@ -138,6 +143,10 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void Start()
         {
+            if (SteamVR.instance == null)
+            {
+                m_RecordButton = m_FallbackRecordButton;
+            }
             SetRecordButtonChildComponents();
             RegisterSpeechToTextServiceWidgetsCallbacks();
         }
