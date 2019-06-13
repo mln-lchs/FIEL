@@ -6,6 +6,9 @@ using Valve.VR.InteractionSystem;
 [RequireComponent(typeof(Interactable))]
 public class BasicItemInteraction : MonoBehaviour
 {
+    public Item itemProperties;
+    private WatsonAssistantService watson;
+
     private Interactable interactable;
 
     private Vector3 oldPosition;
@@ -15,9 +18,15 @@ public class BasicItemInteraction : MonoBehaviour
 
     private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
 
+    private void Start()
+    {
+        watson = GetComponent<WatsonAssistantService>();
+    }
+
     void Awake()
     {
-        interactable = this.GetComponent<Interactable>();
+        interactable = GetComponent<Interactable>();
+        
     }
 
     //-------------------------------------------------
@@ -52,6 +61,12 @@ public class BasicItemInteraction : MonoBehaviour
             // Restore position/rotation
             transform.position = oldPosition;
             transform.rotation = oldRotation;
+
+            KeyValue kv;
+            kv.key = "item_held";
+            kv.value = "false";
+            kv.type = KeyValueType.Bool;
+            watson.SetContext(kv);
         }
     }
 
@@ -60,7 +75,27 @@ public class BasicItemInteraction : MonoBehaviour
     //-------------------------------------------------
     private void OnAttachedToHand(Hand hand)
     {
-        attachTime = Time.time;
+        if (itemProperties != null)
+        {
+            KeyValue kv1, kv2, kv3;
+            // Tell IBM an item is held
+            kv1.key = "item_held";
+            kv1.value = "true";
+            kv1.type = KeyValueType.Bool;
+            watson.SetContext(kv1);
+            // Transmit to bot the name of the item held
+            kv2.key = "item_name";
+            kv2.value = itemProperties.name;
+            kv2.type = KeyValueType.String;
+            watson.SetContext(kv2);
+            // Transmit a short description of the purpose of the item
+            kv3.key = "item_description";
+            kv3.value = itemProperties.description;
+            kv3.type = KeyValueType.String;
+            watson.SetContext(kv3);
+            attachTime = Time.time;
+        }
+        
     }
 
 
