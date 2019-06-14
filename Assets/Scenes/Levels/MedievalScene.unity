@@ -37704,6 +37704,10 @@ PrefabInstance:
       propertyPath: initialContext.Array.data[0].value
       value: true
       objectReference: {fileID: 0}
+    - target: {fileID: 1743404703, guid: a94d1fca5ac2af74290f8b2b302c8bef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a94d1fca5ac2af74290f8b2b302c8bef, type: 3}
 --- !u!1 &5218545795412458646

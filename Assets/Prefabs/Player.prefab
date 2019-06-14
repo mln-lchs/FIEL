@@ -1850,6 +1850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd29dc1eec42f7545a9b0b5df5649c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: {fileID: 3457929394092795422}
   handType: 0
   speak:
     actionPath: /actions/default/in/Speak

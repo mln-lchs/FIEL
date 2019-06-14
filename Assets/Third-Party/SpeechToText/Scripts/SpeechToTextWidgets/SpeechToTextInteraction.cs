@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnitySpeechToText.Utilities;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 namespace UnitySpeechToText.Widgets
 {
@@ -11,7 +12,6 @@ namespace UnitySpeechToText.Widgets
     /// </summary>
     public class SpeechToTextInteraction : MonoBehaviour
     {
-
         /// <summary>
         /// Text to display on the record button when recording
         /// </summary>
@@ -417,5 +417,7 @@ namespace UnitySpeechToText.Widgets
             m_LeftHandMicImage.sprite = m_DisabledMicImage;
 
         }
+
+        
     }
 }
