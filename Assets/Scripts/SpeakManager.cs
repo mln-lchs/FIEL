@@ -8,16 +8,16 @@ public class SpeakManager : MonoBehaviour
 {
     public SteamVR_Input_Sources handType;
     public SteamVR_Action_Boolean speak;
-
-    public SpeechToTextComparisonWidget STTWidget;
-
+    
     public KeyCode keyboardShortcut;
 
     bool m_isInteractable;
+    SpeechToTextInteraction STTInteraction;
     // Start is called before the first frame update
     void Start()
     {
         m_isInteractable = true;
+        STTInteraction = GetComponent<SpeechToTextInteraction>();
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class SpeakManager : MonoBehaviour
         {
             if (speak.GetStateDown(handType) || Input.GetKeyDown(keyboardShortcut))
             {
-                STTWidget.OnRecordButtonClicked();
+                STTInteraction.OnRecordButtonClicked();
             }
             
         }
