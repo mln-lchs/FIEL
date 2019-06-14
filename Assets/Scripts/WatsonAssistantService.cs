@@ -58,6 +58,8 @@ class WatsonAssistantService : MonoBehaviour
     [SerializeField]
     Canvas m_ResultsCanvas;
 
+    PropositionsManager m_PropositionsManager;
+
     [SerializeField]
     List<KeyValue> initialContext;
 
@@ -83,6 +85,8 @@ class WatsonAssistantService : MonoBehaviour
     {
 
         StartCoroutine(TokenInit());
+
+        m_PropositionsManager = GameObject.FindObjectOfType<PropositionsManager>();
 
         m_Timer = 0f;
         m_ResultsCanvas.enabled = false;
@@ -189,12 +193,25 @@ class WatsonAssistantService : MonoBehaviour
             {
                 m_ResultsTextUI.text = text;
             }
+
+        }
+        if (response.Result.Output.Generic.Count > 1)
+        {
+            List<DialogNodeOutputOptionsElement> listOptions = response.Result.Output.Generic[1].Options;
+            List<string> listPropositions = new List<string>();
+            foreach (DialogNodeOutputOptionsElement elmt in listOptions)
+            {
+                listPropositions.Add(elmt.Value.Input.Text);
+            }
+            m_PropositionsManager.SetPropositions(listPropositions);
         }
 
         if (response.Result.Context.Skills != null)
         {
             contextSkills = response.Result.Context.Skills.ToObject<SerializableDictionary<string, object>>();
         }
+
+
     }
 
     public void SetContext(KeyValue kv)

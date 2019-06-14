@@ -62,6 +62,10 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         SpeakManager m_SpeakManager;
         /// <summary>
+        /// Manager of the propositions
+        /// </summary>
+        PropositionsManager m_PropositionsManager;
+        /// <summary>
         /// Maximum distance of interaction
         /// </summary>
         [SerializeField]
@@ -138,8 +142,7 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         bool m_IsRecording;
 
-        
-        
+
 
         /// <summary>
         /// Speech-to-text service widget 
@@ -161,18 +164,27 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         void Start()
         {
+            // Initialize timer
             m_Timer = m_LookAwayTimer;
 
+            // Npc selection initialization
             m_Camera = Camera.main;
             m_NPCTransform = m_Camera.transform;
+
+            
+
+            // Get Components
             m_SpeakManager = GetComponent<SpeakManager>();
             m_SpeechToTextServiceWidget = GetComponent<SpeechToTextServiceWidget>();
+            m_PropositionsManager = GetComponent<PropositionsManager>();
 
+            // No-VR fallbacks
             if (SteamVR.instance == null)
             {
                 m_RightHandUI = m_FallbackRightHandUI;
                 m_LeftHandUI = m_FallbackLeftHandUI;
             }
+
             SetCanvasChildComponents();
             DisableSpeechUI();
             EnableAllUIInteraction();
@@ -198,8 +210,11 @@ namespace UnitySpeechToText.Widgets
             }
             else
             {
-                //m_WatsonAssistant = null;
-                DisableSpeechUI();                
+                if (!m_IsCurrentlyInSpeechToTextSession)
+                {
+                    m_WatsonAssistant = null;
+                    DisableSpeechUI();
+                }
             }
 
             RaycastHit hit;
@@ -210,16 +225,21 @@ namespace UnitySpeechToText.Widgets
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                 if (hit.collider.gameObject.layer == 9)
                 {
+                    WatsonAssistantService previousAssistant = m_WatsonAssistant;
                     m_WatsonAssistant = hit.collider.GetComponentInChildren<WatsonAssistantService>();
-                    m_NPCTransform = hit.collider.transform;
+                    if (previousAssistant != m_WatsonAssistant)
+                    {
+                        m_NPCTransform = hit.collider.transform;
+                        EnableSpeechUI();
+                    }
                     m_Timer = m_LookAwayTimer;
-                    EnableSpeechUI();
                 }
             }
         }
 
         void EnableSpeechUI()
         {
+            m_PropositionsManager.Reset();
             m_SpeakManager.SetInteractable(true);
             m_RightHandUI.enabled = true;
             m_LeftHandUI.enabled = true;
@@ -318,8 +338,12 @@ namespace UnitySpeechToText.Widgets
         {
             SmartLogger.Log(DebugFlags.SpeechToTextWidgets, "Final Result " + finalResult);
             m_RightHandTextUI.text = finalResult;
-            m_WatsonAssistant.SendMessageToAssistant(finalResult);
-            FinishComparisonSession();
+            string result = m_PropositionsManager.TestSelectedProposition(finalResult);
+            if (!result.Equals(""))
+            {
+                m_WatsonAssistant.SendMessageToAssistant(result);
+            }
+            FinishSession();
         }
 
         /// <summary>
@@ -352,16 +376,15 @@ namespace UnitySpeechToText.Widgets
                 // Disable all UI interaction until all responses have been received or after the specified timeout.
                 DisableAllUIInteraction();
                 m_LeftHandTextBackground.material = m_NotRecordingButtonMaterial;
-                Invoke("FinishComparisonSession", m_ResponsesTimeoutInSeconds);
-                string comparisonPhrase = null;
-                m_SpeechToTextServiceWidget.StopRecording(comparisonPhrase);
+                Invoke("FinishSession", m_ResponsesTimeoutInSeconds);
+                m_SpeechToTextServiceWidget.StopRecording();
             }
         }
 
         /// <summary>
         /// Wraps up the current speech-to-text comparison session by enabling all UI interaction.
         /// </summary>
-        void FinishComparisonSession()
+        void FinishSession()
         {
             // If this function is called before the timeout, cancel all invokes so that it is not called again upon timeout.
             CancelInvoke();

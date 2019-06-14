@@ -38,21 +38,7 @@ namespace UnitySpeechToText.Widgets
         /// Whether the last speech-to-text result received was a final (rather than interim) result
         /// </summary>
         bool m_LastResultWasFinal;
-
-        /// <summary>
-        /// Text to compare the final speech-to-text result against
-        /// </summary>
-        string m_ComparisonPhrase;
-        /// <summary>
-        /// Set of leading characters for words to ignore when computing accuracy, which includes '%' by default
-        /// to account for Watson's "%HESITATION" in results
-        /// </summary>
-        HashSet<char> m_LeadingCharsForSpecialWords = new HashSet<char> { '%' };
-        /// <summary>
-        /// Set of surrounding characters for text to ignore when computing accuracy, which includes brackets
-        /// by default to account for instructions in speech such as "[pause]"
-        /// </summary>
-        Dictionary<char, char> m_SurroundingCharsForSpecialText = new Dictionary<char, char> { { '[', ']' } };
+        
         /// <summary>
         /// Delegate for recording timeout
         /// </summary>
@@ -188,10 +174,8 @@ namespace UnitySpeechToText.Widgets
         /// If a streaming speech-to-text service stops recording and the last result sent by it was not already final,
         /// the service is guaranteed to send a final result or error after or before some defined amount of time has passed.
         /// </summary>
-        /// <param name="comparisonPhrase">Optional text to compare the speech-to-text result against</param>
-        public void StopRecording(string comparisonPhrase = null)
+        public void StopRecording()
         {
-            m_ComparisonPhrase = comparisonPhrase;
             if (m_LastResultWasFinal)
             {
                 ProcessEndResults();
@@ -232,35 +216,14 @@ namespace UnitySpeechToText.Widgets
         void ProcessEndResults()
         {
             SmartLogger.Log(DebugFlags.SpeechToTextWidgets, m_SpeechToTextService.GetType().ToString() + " got last response");
-            if (m_ComparisonPhrase != null)
-            {
-                DisplayAccuracyOfEndResults(m_ComparisonPhrase);
-            }
-            
+           
             if (m_OnReceivedLastResponse != null)
             {
                 m_OnReceivedLastResponse(m_PreviousFinalResults);
             }
         }
 
-        /// <summary>
-        /// Computes the accuracy (percentage) of the end text results in comparison to the given phrase, by using 
-        /// the Levenshtein Distance between the two strings, and displays this percentage in the results text UI.
-        /// </summary>
-        /// <param name="originalPhrase">The phrase to compare against</param>
-        void DisplayAccuracyOfEndResults(string originalPhrase)
-        {
-            /**string speechToTextResult = StringUtilities.TrimSpecialFormatting(m_ResultsTextUI.text, new HashSet<char>(),
-                m_LeadingCharsForSpecialWords, m_SurroundingCharsForSpecialText);
-            originalPhrase = StringUtilities.TrimSpecialFormatting(originalPhrase, new HashSet<char>(),
-                m_LeadingCharsForSpecialWords, m_SurroundingCharsForSpecialText);
-
-            int levenDistance = StringUtilities.LevenshteinDistance(speechToTextResult, originalPhrase);
-            SmartLogger.Log(DebugFlags.SpeechToTextWidgets, m_SpeechToTextService.GetType().ToString() + " compute accuracy of text: \"" + speechToTextResult + "\"");
-            float accuracy = Mathf.Max(0, 100f - (100f * (float)levenDistance / (float)originalPhrase.Length));
-            m_PreviousFinalResults = "[Accuracy: " + accuracy + "%] " + m_PreviousFinalResults;
-            m_ResultsTextUI.text = m_PreviousFinalResults;*/
-        }
+        
 
         /// <summary>
         /// Function that is called when an error occurs. If this object is waiting for

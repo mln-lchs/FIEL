@@ -1757,6 +1757,7 @@ GameObject:
   - component: {fileID: 3457929394123728982}
   - component: {fileID: 7658148577198285490}
   - component: {fileID: 4555609563023755370}
+  - component: {fileID: 1930460127953392911}
   m_Layer: 5
   m_Name: WitAiNonStreamingSpeechToText
   m_TagString: Untagged
@@ -1854,6 +1855,26 @@ MonoBehaviour:
     actionPath: /actions/default/in/Speak
     needsReinit: 0
   keyboardShortcut: 32
+--- !u!114 &1930460127953392911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457929394123728980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab4e9170d78abe45b7a3cc3a696a35a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GreetingsPropositions:
+  - Hello
+  - Hey!
+  - How are you doing?
+  m_OtherText: '[Try Anything]'
+  m_MinAccuracy: 50
+  m_AccuracyBonus: 5
+  m_LeftUI: {fileID: 7082822957622054321}
 --- !u!1 &3457929394340314232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,17 +2524,20 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 22400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5584035051111840576, guid: 05a81c3d5091440058129444d28322f3,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
+--- !u!114 &7082822957622054321 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8690813438074676985, guid: 05a81c3d5091440058129444d28322f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1932261061728840520}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4eeec6187837874fb1902a811492073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1932261061717616460 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3,
