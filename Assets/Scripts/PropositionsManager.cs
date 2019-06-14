@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnitySpeechToText.Utilities;
+using Valve.VR;
 
 public class PropositionsManager : MonoBehaviour
 {
+    public SteamVR_Input_Sources handType;
+    public SteamVR_Action_Boolean leftArrow;
+    public SteamVR_Action_Boolean rightArrow;
     /// <summary>
     /// List of greetings propositions
     /// </summary>
@@ -33,6 +37,12 @@ public class PropositionsManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     LeftUI m_LeftUI;
+
+    /// <summary>
+    /// Fallback UI references
+    /// </summary>
+    [SerializeField]
+    LeftUI m_FallbackLeftUI;
 
     /// <summary>
     /// List of propositions
@@ -65,6 +75,11 @@ public class PropositionsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // No-VR fallbacks
+        if (SteamVR.instance == null)
+        {
+            m_LeftUI = m_FallbackLeftUI;
+        }
         m_PropositionText = m_LeftUI.m_PropositionText;
         m_AccuracyText = m_LeftUI.m_AccuracyText;
 
@@ -75,13 +90,13 @@ public class PropositionsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (rightArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             m_Index++;
             if (m_Index > m_Propositions.Count) m_Index = 0;
             SetPropositionText();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (leftArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             m_Index--;
             if (m_Index < 0) m_Index = m_Propositions.Count;

@@ -45,6 +45,14 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/LeftArrow",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/RightArrow",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
