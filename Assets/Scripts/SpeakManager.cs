@@ -8,6 +8,8 @@ using Valve.VR.InteractionSystem;
 public class SpeakManager : MonoBehaviour
 {
     public Hand hand;
+    public GameObject mrRobot;
+
     public SteamVR_Input_Sources handType;
     public SteamVR_Action_Boolean speak;
     
@@ -15,26 +17,30 @@ public class SpeakManager : MonoBehaviour
 
     bool m_isInteractable;
     SpeechToTextInteraction STTInteraction;
+
     // Start is called before the first frame update
     void Start()
     {
-        m_isInteractable = true;
         STTInteraction = GetComponent<SpeechToTextInteraction>();
+        m_isInteractable = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (m_isInteractable)
-        {
-            if (speak.GetStateDown(handType) || Input.GetKeyDown(keyboardShortcut))
+        if (speak.GetStateDown(handType) || Input.GetKeyDown(keyboardShortcut))
+        { 
+            if (m_isInteractable)
             {
                 STTInteraction.OnRecordButtonClicked();
             }
-            
-        }
+            else
+            {
+                //On teleporte le robot vers le joueur
+                mrRobot.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
+            }
 
+        }
     }
 
     public void SetInteractable(bool interactable)
