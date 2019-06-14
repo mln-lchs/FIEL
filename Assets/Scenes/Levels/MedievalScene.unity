@@ -4341,6 +4341,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -89.914
       objectReference: {fileID: 0}
+    - target: {fileID: 2104945042583299025, guid: 639d8009f73c0c0479e83997d1fc2ec2,
+        type: 3}
+      propertyPath: watson
+      value: 
+      objectReference: {fileID: 364368706}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639d8009f73c0c0479e83997d1fc2ec2, type: 3}
 --- !u!4 &290287559 stripped
@@ -5742,6 +5747,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 364228393}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &364368706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5916628739055736721, guid: a94d1fca5ac2af74290f8b2b302c8bef,
+    type: 3}
+  m_PrefabInstance: {fileID: 4109854231202636850}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee23de793074c647b632677d46abd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &365873957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29047,76 +29064,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1700017813}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1702609422 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1573554358890940, guid: 639d8009f73c0c0479e83997d1fc2ec2,
-    type: 3}
-  m_PrefabInstance: {fileID: 290287558}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1702609427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702609422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activateActionSetOnAttach:
-    actionSetPath: 
-  hideHandOnAttach: 1
-  hideSkeletonOnAttach: 0
-  hideControllerOnAttach: 1
-  handAnimationOnPickup: 0
-  setRangeOfMotionOnPickup: 0
-  useHandObjectAttachmentPoint: 0
-  attachEaseIn: 0
-  snapAttachEaseInCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  snapAttachEaseInTime: 0.1
-  snapAttachEaseInCompleted: 0
-  skeletonPoser: {fileID: 0}
-  handFollowTransform: 1
-  highlightOnHover: 1
-  hideHighlight: []
---- !u!114 &1702609428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702609422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4eee776d2e9602429b0a4b59a0aba5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemProperties: {fileID: 11400000, guid: fc58a7b317ab7ff47aa87fdc17d7957d, type: 2}
 --- !u!1001 &1711727403
 PrefabInstance:
   m_ObjectHideFlags: 0

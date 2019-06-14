@@ -7,7 +7,6 @@ using Valve.VR.InteractionSystem;
 public class BasicItemInteraction : MonoBehaviour
 {
     public Item itemProperties;
-    private WatsonAssistantService watson;
 
     private Interactable interactable;
 
@@ -20,7 +19,7 @@ public class BasicItemInteraction : MonoBehaviour
 
     private void Start()
     {
-        watson = GetComponent<WatsonAssistantService>();
+        
     }
 
     void Awake()
@@ -66,7 +65,7 @@ public class BasicItemInteraction : MonoBehaviour
             kv.key = "item_held";
             kv.value = "false";
             kv.type = KeyValueType.Bool;
-            watson.SetContext(kv);
+            GlobalContext.Instance.SetContext(kv);
         }
     }
 
@@ -82,17 +81,17 @@ public class BasicItemInteraction : MonoBehaviour
             kv1.key = "item_held";
             kv1.value = "true";
             kv1.type = KeyValueType.Bool;
-            watson.SetContext(kv1);
+            GlobalContext.Instance.SetContext(kv1);
             // Transmit to bot the name of the item held
             kv2.key = "item_name";
             kv2.value = itemProperties.name;
             kv2.type = KeyValueType.String;
-            watson.SetContext(kv2);
+            GlobalContext.Instance.SetContext(kv2);
             // Transmit a short description of the purpose of the item
             kv3.key = "item_description";
             kv3.value = itemProperties.description;
             kv3.type = KeyValueType.String;
-            watson.SetContext(kv3);
+            GlobalContext.Instance.SetContext(kv3);
             attachTime = Time.time;
         }
         

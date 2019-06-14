@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 95296756425145856}
   - component: {fileID: 65802130965252888}
   - component: {fileID: 5212249424947931541}
-  - component: {fileID: 2504673929456321699}
+  - component: {fileID: 2104945042583299025}
   m_Layer: 0
   m_Name: Glass_01
   m_TagString: Untagged
@@ -164,7 +164,7 @@ MonoBehaviour:
   handFollowTransform: 1
   highlightOnHover: 1
   hideHighlight: []
---- !u!114 &2504673929456321699
+--- !u!114 &2104945042583299025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
