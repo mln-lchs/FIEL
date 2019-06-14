@@ -27,12 +27,17 @@ namespace HoloToolkit.Unity
         [Tooltip("Specifies the target we will orient to. If no Target is specified the main camera will be used.")]
         public Transform TargetTransform;
 
+        private bool drone;
+
         private void Start()
         {
             if (TargetTransform == null)
             {
                 TargetTransform = Camera.main.transform;
             }
+
+            if (name == "Drone")
+                drone = true;
 
             Update();
         }
@@ -71,6 +76,10 @@ namespace HoloToolkit.Unity
 
             // Calculate and apply the rotation required to reorient the object
             transform.rotation = Quaternion.LookRotation(-directionToTarget);
+
+            // Rotation to make its face face front
+            if (drone)
+                transform.Rotate(-90, 180, 0);
         }
     }
 }

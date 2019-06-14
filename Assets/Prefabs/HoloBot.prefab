@@ -9672,7 +9672,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4109854229580220287}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 8e7ff86547235d74d900689195c58f15, type: 3}
   m_Controller: {fileID: 9100000, guid: abad03a559e2dc0409d0c32958cea30e, type: 2}
   m_CullingMode: 0
@@ -10044,7 +10044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c655338633f4544180b3d90a593ac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagalongDistance: 2
+  TagalongDistance: 1
   EnforceDistance: 1
   PositionUpdateSpeed: 9.8
   SmoothMotion: 1
@@ -10090,7 +10090,6 @@ MonoBehaviour:
   m_IAMKey: tJo9g0hupNFeRN3nJE33bjeu5slmqVfRbjPo4JfHRqM3
   m_AssistantId: 494f8e64-c341-4ad8-93bb-76c46d322995
   m_CanvasTimeOut: 20
-  m_ResultsTextUI: {fileID: 9025752284717559845}
   m_ResultsCanvas: {fileID: 4109854229895360541}
   initialContext:
   - key: first_greetings
@@ -63668,15 +63667,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3516384960730351274}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9025752284717559845 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5588224539140650639, guid: 4a9af2bb850c66243a1150bb9af5e145,
-    type: 3}
-  m_PrefabInstance: {fileID: 3516384960730351274}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
