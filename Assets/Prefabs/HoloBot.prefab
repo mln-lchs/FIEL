@@ -9584,6 +9584,7 @@ GameObject:
   - component: {fileID: 4109854229580220258}
   - component: {fileID: 4109854229580220285}
   - component: {fileID: 5916628739055736721}
+  - component: {fileID: 1743404703}
   m_Layer: 9
   m_Name: Drone
   m_TagString: Untagged
@@ -10095,6 +10096,26 @@ MonoBehaviour:
   - key: first_greetings
     value: true
     type: 0
+  greetingsPropositions:
+  - Hello!
+  - Hi!
+  - Can you help me?
+--- !u!114 &1743404703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109854229580220287}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa78dbebf9e70ac46a1a0f1c131c14af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextToSpeechURL: 
+  TextToSpeechIamApikey: fffaMyHMKv1YDNazkHoA6B_XATeh96_QLGFkL8Bt2PDj
+  TextToSpeechIamUrl: 
+  VoiceName: en-US_MichaelVoice
 --- !u!1 &4109854229584359394
 GameObject:
   m_ObjectHideFlags: 0

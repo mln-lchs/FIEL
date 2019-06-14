@@ -230,6 +230,7 @@ namespace UnitySpeechToText.Widgets
                     if (previousAssistant != m_WatsonAssistant)
                     {
                         m_NPCTransform = hit.collider.transform;
+                        m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
                         EnableSpeechUI();
                     }
                     m_Timer = m_LookAwayTimer;
@@ -239,7 +240,6 @@ namespace UnitySpeechToText.Widgets
 
         void EnableSpeechUI()
         {
-            m_PropositionsManager.Reset();
             m_SpeakManager.SetInteractable(true);
             m_RightHandUI.enabled = true;
             m_LeftHandUI.enabled = true;
@@ -343,6 +343,7 @@ namespace UnitySpeechToText.Widgets
             {
                 m_WatsonAssistant.SendMessageToAssistant(result);
             }
+            m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
             FinishSession();
         }
 
