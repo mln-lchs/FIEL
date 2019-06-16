@@ -70,9 +70,7 @@ class WatsonAssistantService : MonoBehaviour
     SerializableDictionary<string, object> contextSkills;
 
     Text m_ResultsTextUI;
-
-    PropositionsManager m_PropositionsManager;
-
+    
     public string IAMUrl { set { m_IAMUrl = value; } }
     
     public string IAMKey { set { m_IAMKey = value; } }
@@ -93,7 +91,6 @@ class WatsonAssistantService : MonoBehaviour
 
         StartCoroutine(TokenInit());
 
-        m_PropositionsManager = GameObject.FindObjectOfType<PropositionsManager>();
         m_listPropositions.Clear();
         m_listPropositions.AddRange(greetingsPropositions);
 
@@ -212,7 +209,6 @@ class WatsonAssistantService : MonoBehaviour
             {
                 m_listPropositions.Add(elmt.Value.Input.Text);
             }
-            m_PropositionsManager.SetPropositions(m_listPropositions);
         }
 
         if (response.Result.Context.Skills != null)

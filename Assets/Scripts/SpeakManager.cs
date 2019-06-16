@@ -15,14 +15,18 @@ public class SpeakManager : MonoBehaviour
     
     public KeyCode keyboardShortcut;
 
-    bool m_isInteractable;
+    bool m_CanSpeak;
+    bool m_CanSpawnRobot;
+    bool m_CanSkip;
     SpeechToTextInteraction STTInteraction;
 
     // Start is called before the first frame update
     void Start()
     {
         STTInteraction = GetComponent<SpeechToTextInteraction>();
-        m_isInteractable = false;
+        m_CanSpeak = false;
+        m_CanSpawnRobot = true;
+        m_CanSkip = false;
     }
 
     // Update is called once per frame
@@ -30,29 +34,45 @@ public class SpeakManager : MonoBehaviour
     {
         if (speak.GetStateDown(handType) || Input.GetKeyDown(keyboardShortcut))
         { 
-            if (m_isInteractable)
+            if (m_CanSpeak)
             {
                 STTInteraction.OnRecordButtonClicked();
             }
-            else
+            if (m_CanSpawnRobot)
             {
                 //On teleporte le robot vers le joueur
                 mrRobot.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
+            }
+            if (m_CanSkip)
+            {
+                STTInteraction.FinishSession();
             }
 
         }
     }
 
-    public void SetInteractable(bool interactable)
+    public void SetCanSpeak(bool canspeak)
     {
-        m_isInteractable = interactable;
-        if (interactable)
+        m_CanSpeak = canspeak;
+        if (canspeak)
         {
             ShowHints();
         } else
         {
             HideHints();
         }
+    }
+
+    public void SetCanSpawnRobot(bool canspawn)
+    {
+        m_CanSpawnRobot = canspawn;
+        
+    }
+
+    public void SetCanSkip(bool canskip)
+    {
+        m_CanSkip = canskip;
+
     }
 
     void ShowHints()

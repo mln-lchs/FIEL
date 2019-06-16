@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnitySpeechToText.Utilities;
@@ -12,6 +13,7 @@ namespace UnitySpeechToText.Widgets
     /// </summary>
     public class SpeechToTextInteraction : MonoBehaviour
     {
+        [Header("UI Elements")]
         /// <summary>
         /// Text to display on the record button when recording
         /// </summary>
@@ -28,6 +30,11 @@ namespace UnitySpeechToText.Widgets
         [SerializeField]
         string m_WaitingForResponsesText;
         /// <summary>
+        /// Text to display on the record button when feedbacks are displayed
+        /// </summary>
+        [SerializeField]
+        string m_FeedbacksText;
+        /// <summary>
         /// Image to display when mic is enabled
         /// </summary>
         [SerializeField]
@@ -37,6 +44,16 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         [SerializeField]
         Sprite m_DisabledMicImage;
+        /// <summary>
+        /// Material of the mic when disabled
+        /// </summary>
+        [SerializeField]
+        Material m_DisabledMicMaterial;
+        /// <summary>
+        /// Material of the mic when disabled
+        /// </summary>
+        [SerializeField]
+        Material m_EnabledMicMaterial;
         /// <summary>
         /// Material of the record button when recording
         /// </summary>
@@ -48,33 +65,6 @@ namespace UnitySpeechToText.Widgets
         [SerializeField]
         Material m_NotRecordingButtonMaterial;
 
-        /// <summary>
-        /// Number of seconds to wait for all responses after recording
-        /// </summary>
-        [SerializeField]
-        float m_ResponsesTimeoutInSeconds = 8f;
-        /// <summary>
-        /// Store for SpeechToTextServiceWidgets property
-        /// </summary>
-        SpeechToTextServiceWidget m_SpeechToTextServiceWidget;
-        /// <summary>
-        /// Manager of the controls for speaking
-        /// </summary>
-        SpeakManager m_SpeakManager;
-        /// <summary>
-        /// Manager of the propositions
-        /// </summary>
-        PropositionsManager m_PropositionsManager;
-        /// <summary>
-        /// Maximum distance of interaction
-        /// </summary>
-        [SerializeField]
-        float m_RayDistance = 3f;
-        /// <summary>
-        /// Time without looking at the npc before disabling speech
-        /// </summary>
-        [SerializeField]
-        float m_LookAwayTimer = 10f;
         /// <summary>
         /// Canvas of the right hand
         /// </summary>
@@ -98,23 +88,57 @@ namespace UnitySpeechToText.Widgets
         [SerializeField]
         Canvas m_FallbackLeftHandUI;
 
+        [Header("Settings")]
+        /// <summary>
+        /// Number of seconds to wait for feedback
+        /// </summary>
+        [SerializeField]
+        float m_FeedbackTimeoutInSeconds = 8f;
+        /// <summary>
+        /// Number of seconds to wait for all responses after recording
+        /// </summary>
+        [SerializeField]
+        float m_ResponsesTimeoutInSeconds = 8f;
+        /// <summary>
+        /// Maximum distance of interaction
+        /// </summary>
+        [SerializeField]
+        float m_RayDistance = 3f;
+        /// <summary>
+        /// Time without looking at the npc before disabling speech
+        /// </summary>
+        [SerializeField]
+        float m_LookAwayTimer = 10f;
+        
+
         /// <summary>
         /// Camera of the player for raycasting
         /// </summary>
         Camera m_Camera;
-
+        /// <summary>
+        /// Manager of the controls for speaking
+        /// </summary>
+        SpeakManager m_SpeakManager;
+        /// <summary>
+        /// Manager of the propositions
+        /// </summary>
+        PropositionsManager m_PropositionsManager;
         /// <summary>
         /// Selected assistant for speech
         /// </summary>
         WatsonAssistantService m_WatsonAssistant;
         /// <summary>
+        /// Store for SpeechToTextServiceWidgets property
+        /// </summary>
+        SpeechToTextServiceWidget m_SpeechToTextServiceWidget;
+        /// <summary>
         /// Transform of the selected assistant for distance
         /// </summary>
         Transform m_NPCTransform;
         /// <summary>
-        /// Timer
+        /// Timer for selecting npc
         /// </summary>
-        float m_Timer;
+        float m_NPCTimer;
 
         /// <summary>
         /// Text UI for the left hand
@@ -165,7 +189,7 @@ namespace UnitySpeechToText.Widgets
         void Start()
         {
             // Initialize timer
-            m_Timer = m_LookAwayTimer;
+            m_NPCTimer = m_LookAwayTimer;
 
             // Npc selection initialization
             m_Camera = Camera.main;
@@ -187,7 +211,6 @@ namespace UnitySpeechToText.Widgets
 
             SetCanvasChildComponents();
             DisableSpeechUI();
-            EnableAllUIInteraction();
             RegisterSpeechToTextServiceWidgetsCallbacks();
         }
 
@@ -204,9 +227,9 @@ namespace UnitySpeechToText.Widgets
             layerMask = ~layerMask;
 
             float dist = Vector2.Distance(new Vector2(m_Camera.transform.position.x, m_Camera.transform.position.z), new Vector2(m_NPCTransform.position.x, m_NPCTransform.position.z));
-            if (m_Timer > 0 && dist <= m_RayDistance)
+            if (m_NPCTimer > 0 && dist <= m_RayDistance)
             {
-                m_Timer -= Time.deltaTime;
+                m_NPCTimer -= Time.deltaTime;
             }
             else
             {
@@ -233,21 +256,25 @@ namespace UnitySpeechToText.Widgets
                         m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
                         EnableSpeechUI();
                     }
-                    m_Timer = m_LookAwayTimer;
+                    m_NPCTimer = m_LookAwayTimer;
                 }
             }
         }
 
         void EnableSpeechUI()
         {
-            m_SpeakManager.SetInteractable(true);
+            m_SpeakManager.SetCanSpeak(true);
+            m_SpeakManager.SetCanSpawnRobot(false);
+            m_SpeakManager.SetCanSkip(false);
             m_RightHandUI.enabled = true;
             m_LeftHandUI.enabled = true;
         }
 
         void DisableSpeechUI()
         {
-            m_SpeakManager.SetInteractable(false);
+            m_SpeakManager.SetCanSpeak(false);
+            m_SpeakManager.SetCanSpawnRobot(true);
+            m_SpeakManager.SetCanSkip(false);
             m_RightHandUI.enabled = false;
             m_LeftHandUI.enabled = false;
         }
@@ -270,7 +297,10 @@ namespace UnitySpeechToText.Widgets
                 LeftUI leftUI = m_LeftHandUI.GetComponentInChildren<LeftUI>();
                 m_LeftHandTextBackground = leftUI.m_Background;
                 m_LeftHandRecordInfoText = leftUI.m_RecordInfoText; ;
-                m_LeftHandMicImage = leftUI.m_MicImage; ;
+                m_LeftHandMicImage = leftUI.m_MicImage;
+
+                m_LeftHandRecordInfoText.text = m_NotRecordingText;
+                m_LeftHandMicImage.sprite = m_EnabledMicImage;
 
             }
             if (m_RightHandUI != null)
@@ -343,8 +373,7 @@ namespace UnitySpeechToText.Widgets
             {
                 m_WatsonAssistant.SendMessageToAssistant(result);
             }
-            m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
-            FinishSession();
+            WaitForFeedbacks();
         }
 
         /// <summary>
@@ -375,7 +404,7 @@ namespace UnitySpeechToText.Widgets
                 m_IsRecording = false;
 
                 // Disable all UI interaction until all responses have been received or after the specified timeout.
-                DisableAllUIInteraction();
+                DisableSpeaking();
                 m_LeftHandTextBackground.material = m_NotRecordingButtonMaterial;
                 Invoke("FinishSession", m_ResponsesTimeoutInSeconds);
                 m_SpeechToTextServiceWidget.StopRecording();
@@ -385,39 +414,56 @@ namespace UnitySpeechToText.Widgets
         /// <summary>
         /// Wraps up the current speech-to-text comparison session by enabling all UI interaction.
         /// </summary>
-        void FinishSession()
+        public void FinishSession()
         {
-            // If this function is called before the timeout, cancel all invokes so that it is not called again upon timeout.
             CancelInvoke();
-
+            m_SpeakManager.SetCanSkip(false);
+            m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
             if (m_IsCurrentlyInSpeechToTextSession)
             {
                 m_IsCurrentlyInSpeechToTextSession = false;
-                EnableAllUIInteraction();
+                EnableSpeaking();
             }
         }
 
         /// <summary>
-        /// Enables interaction with the record button and phrase toggles.
+        /// Enables speak.
         /// </summary>
-        void EnableAllUIInteraction()
+        void EnableSpeaking()
         {
-            m_SpeakManager.SetInteractable(true);
+            m_SpeakManager.SetCanSpeak(true);
+            m_SpeakManager.SetCanSkip(false);
+            m_SpeakManager.SetCanSpawnRobot(false);
             m_LeftHandRecordInfoText.text = m_NotRecordingText;
             m_LeftHandMicImage.sprite = m_EnabledMicImage;
+            m_LeftHandMicImage.material = m_EnabledMicMaterial;
         }
 
         /// <summary>
-        /// Disables interaction with the record button and phrase toggles.
+        /// Disables speak.
         /// </summary>
-        void DisableAllUIInteraction()
+        void DisableSpeaking()
         {
-            m_SpeakManager.SetInteractable(false);
+            m_SpeakManager.SetCanSpeak(false);
+            m_SpeakManager.SetCanSkip(false);
+            m_SpeakManager.SetCanSpawnRobot(false);
             m_LeftHandRecordInfoText.text = m_WaitingForResponsesText;
             m_LeftHandMicImage.sprite = m_DisabledMicImage;
+            m_LeftHandMicImage.material = m_DisabledMicMaterial;
 
         }
 
-        
+        void WaitForFeedbacks()
+        {
+            CancelInvoke("FinishSession");
+
+            m_SpeakManager.SetCanSkip(true);
+            m_SpeakManager.SetCanSpawnRobot(false);
+            m_SpeakManager.SetCanSpeak(false);
+            m_LeftHandRecordInfoText.text = m_FeedbacksText;
+
+            Invoke("FinishSession", m_FeedbackTimeoutInSeconds);
+        }
+
     }
 }

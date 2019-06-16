@@ -1477,6 +1477,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3457929394103218138, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457929394103208622, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555609563023755370, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: mrRobot
+      value: 
+      objectReference: {fileID: 2057954400}
     - target: {fileID: 1771551203272969837, guid: dbcae1fa7c94fe54dac133fb4c747504,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -1511,6 +1526,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136041270820438678, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136041270820438678, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136041270820438678, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136041270820438678, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136041270820438678, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 293589897396608034, guid: dbcae1fa7c94fe54dac133fb4c747504,
         type: 3}
@@ -31590,6 +31630,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a94d1fca5ac2af74290f8b2b302c8bef, type: 3}
+--- !u!1 &2057954400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4109854230323051777, guid: a94d1fca5ac2af74290f8b2b302c8bef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2057954399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2060464149
 PrefabInstance:
   m_ObjectHideFlags: 0

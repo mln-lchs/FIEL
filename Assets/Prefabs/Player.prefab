@@ -1822,22 +1822,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b680754357de068418689921c1b873d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RecordingText: Recording...
+  m_RecordingText: Press again to stop
   m_NotRecordingText: Press the handle
   m_WaitingForResponsesText: Wait...
+  m_FeedbacksText: Press to continue
   m_EnabledMicImage: {fileID: 21300000, guid: 5e57736cc7d598049b2600d44d70b260, type: 3}
   m_DisabledMicImage: {fileID: 21300000, guid: 24f577b1803984a41bc977ebc7283dc9, type: 3}
-  m_RecordingButtonMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5,
+  m_DisabledMicMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5,
+    type: 2}
+  m_EnabledMicMaterial: {fileID: 2100000, guid: 6d7a3383bc339d045b9f32f39c65c0d3,
+    type: 2}
+  m_RecordingButtonMaterial: {fileID: 2100000, guid: 182d8e62577c792459e6257a5e6a4214,
     type: 2}
   m_NotRecordingButtonMaterial: {fileID: 2100000, guid: a9d8565cd2f99b04c94288f457b17456,
     type: 2}
-  m_ResponsesTimeoutInSeconds: 10
-  m_RayDistance: 2.5
-  m_LookAwayTimer: 20
   m_RightHandUI: {fileID: 3457929395347106811}
   m_LeftHandUI: {fileID: 3457929395482572873}
   m_FallbackRightHandUI: {fileID: 996572044}
   m_FallbackLeftHandUI: {fileID: 1405255033}
+  m_FeedbackTimeoutInSeconds: 10
+  m_ResponsesTimeoutInSeconds: 10
+  m_RayDistance: 2.5
+  m_LookAwayTimer: 20
 --- !u!114 &4555609563023755370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,6 +1857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 3457929394092795422}
+  mrRobot: {fileID: 0}
   handType: 0
   speak:
     actionPath: /actions/default/in/Speak
@@ -1882,6 +1889,10 @@ MonoBehaviour:
   m_OtherText: '[Try Anything]'
   m_MinAccuracy: 50
   m_AccuracyBonus: 5
+  m_CorrectAccuracy: 95
+  m_CorrectColor: {r: 0.39148802, g: 0.990566, b: 0.3551086, a: 1}
+  m_NotBadColor: {r: 1, g: 0.8790318, b: 0.31132078, a: 1}
+  m_ErrorColor: {r: 0.990566, g: 0.1214845, b: 0.1214845, a: 1}
   m_LeftUI: {fileID: 8973689105716344537}
   m_FallbackLeftUI: {fileID: 7082822957622054321}
 --- !u!1 &3457929394340314232
@@ -2572,6 +2583,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3457929395347106808}
     m_Modifications:
+    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
+        type: 3}
+      propertyPath: m_Name
+      value: SFRightHandUI
+      objectReference: {fileID: 0}
     - target: {fileID: 5588224539153746377, guid: 4a9af2bb850c66243a1150bb9af5e145,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2677,11 +2693,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
-        type: 3}
-      propertyPath: m_Name
-      value: SFRightHandUI
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a9af2bb850c66243a1150bb9af5e145, type: 3}
 --- !u!224 &1771551203272969837 stripped
@@ -2697,6 +2708,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 996572040}
     m_Modifications:
+    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
+        type: 3}
+      propertyPath: m_Name
+      value: SFRightHandUI
+      objectReference: {fileID: 0}
     - target: {fileID: 5588224539153746377, guid: 4a9af2bb850c66243a1150bb9af5e145,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2801,11 +2817,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
-        type: 3}
-      propertyPath: m_Name
-      value: SFRightHandUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a9af2bb850c66243a1150bb9af5e145, type: 3}

@@ -10,5 +10,7 @@ public class LeftUI : MonoBehaviour
     public Text m_PropositionText;
     public Text m_AccuracyText;
     public Image m_MicImage;
-    
+    public Image m_LeftArrow;
+    public Image m_RightArrow;
+
 }

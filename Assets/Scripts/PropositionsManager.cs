@@ -33,6 +33,27 @@ public class PropositionsManager : MonoBehaviour
     [Range(0, 100)]
     int m_AccuracyBonus;
     /// <summary>
+    /// Correct accuracy percentage
+    /// </summary>
+    [SerializeField]
+    [Range(0, 100)]
+    int m_CorrectAccuracy;
+    /// <summary>
+    /// Correct Color
+    /// </summary>
+    [SerializeField]
+    Color m_CorrectColor;
+    /// <summary>
+    /// Not Bad Color
+    /// </summary>
+    [SerializeField]
+    Color m_NotBadColor;
+    /// <summary>
+    /// Error Color
+    /// </summary>
+    [SerializeField]
+    Color m_ErrorColor;
+    /// <summary>
     /// UI references
     /// </summary>
     [SerializeField]
@@ -57,13 +78,24 @@ public class PropositionsManager : MonoBehaviour
     /// </summary>
     Text m_AccuracyText;
     /// <summary>
+    /// Image UI for left arrow
+    /// </summary>
+    Image m_LeftArrowImage;
+    /// <summary>
+    /// Image UI for right arrow
+    /// </summary>
+    Image m_RightArrowImage;
+    /// <summary>
     /// Index of the selected proposition
     /// </summary>
     int m_Index = 0;
+    /// <summary>
+    /// if you can change propositions or not
+    /// </summary>
+    bool m_IsInteractable;
 
     // <summary>
-    /// Set of leading characters for words to ignore when computing accuracy, which includes '%' by default
-    /// to account for Watson's "%HESITATION" in results
+    /// Set of leading characters for words to ignore when computing accuracy
     /// </summary>
     HashSet<char> m_LeadingCharsForSpecialWords = new HashSet<char> { '%' };
     /// <summary>
@@ -82,7 +114,9 @@ public class PropositionsManager : MonoBehaviour
         }
         m_PropositionText = m_LeftUI.m_PropositionText;
         m_AccuracyText = m_LeftUI.m_AccuracyText;
-
+        m_LeftArrowImage = m_LeftUI.m_LeftArrow;
+        m_RightArrowImage = m_LeftUI.m_RightArrow;
+        m_IsInteractable = true;
         // Init propositions
         Reset();
     }
@@ -90,17 +124,20 @@ public class PropositionsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rightArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (m_IsInteractable)
         {
-            m_Index++;
-            if (m_Index > m_Propositions.Count) m_Index = 0;
-            SetPropositionText();
-        }
-        if (leftArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            m_Index--;
-            if (m_Index < 0) m_Index = m_Propositions.Count;
-            SetPropositionText();
+            if (rightArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                m_Index++;
+                if (m_Index > m_Propositions.Count) m_Index = 0;
+                SetPropositionText();
+            }
+            if (leftArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                m_Index--;
+                if (m_Index < 0) m_Index = m_Propositions.Count;
+                SetPropositionText();
+            }
         }
     }
 
@@ -123,8 +160,13 @@ public class PropositionsManager : MonoBehaviour
     /// <returns>String of the proposition if one is selected, an empty string if accuracy too low</returns>
     public string TestSelectedProposition(string input)
     {
+        m_IsInteractable = false;
+
+        m_LeftArrowImage.enabled = false;
+        m_RightArrowImage.enabled = false;
         if (m_Index == m_Propositions.Count)
         {
+            m_PropositionText.text = input;
             return input;
         }
         else
@@ -132,14 +174,20 @@ public class PropositionsManager : MonoBehaviour
             float accuracy = ComputeAccuracy(m_Propositions[m_Index], input);
             accuracy = Mathf.Min(100f, accuracy + m_AccuracyBonus);
             m_AccuracyText.text = string.Format("{0}%", (int) accuracy);
+            DisplayWithErrors(m_Propositions[m_Index], input);
             if (accuracy < m_MinAccuracy)
             {
+                m_AccuracyText.color = m_ErrorColor;
                 return "";
+            } else if (accuracy < m_CorrectAccuracy)
+            {
+                m_AccuracyText.color = m_NotBadColor;
+                return m_Propositions[m_Index];
             } else
             {
+                m_AccuracyText.color = m_CorrectColor;
                 return m_Propositions[m_Index];
             }
-            
         }
     }
 
@@ -152,18 +200,22 @@ public class PropositionsManager : MonoBehaviour
     /// <returns>Accuracy</returns>
     float ComputeAccuracy(string propositionPhrase, string inputPhrase)
     {
-        string speechToTextResult = StringUtilities.TrimSpecialFormatting(inputPhrase, new HashSet<char>(),
+        inputPhrase = StringUtilities.TrimSpecialFormatting(inputPhrase, new HashSet<char> {},
             m_LeadingCharsForSpecialWords, m_SurroundingCharsForSpecialText);
         propositionPhrase = StringUtilities.TrimSpecialFormatting(propositionPhrase, new HashSet<char>(),
             m_LeadingCharsForSpecialWords, m_SurroundingCharsForSpecialText);
 
-        int levenDistance = StringUtilities.LevenshteinDistance(speechToTextResult, propositionPhrase);
+        int levenDistance = StringUtilities.LevenshteinDistance(inputPhrase, propositionPhrase);
         float accuracy = Mathf.Max(0, 100f - (100f * (float)levenDistance / (float)propositionPhrase.Length));
             return accuracy;
     }
 
     public void SetPropositions(List<string> propositions)
     {
+        m_IsInteractable = true;
+        m_LeftArrowImage.enabled = true;
+        m_RightArrowImage.enabled = true;
+        m_AccuracyText.text = "";
         m_Propositions.Clear();
         m_Propositions.AddRange(propositions);
         m_Index = 0;
@@ -173,5 +225,60 @@ public class PropositionsManager : MonoBehaviour
     public void Reset()
     {
         SetPropositions(m_GreetingsPropositions);
+    }
+
+    void DisplayWithErrors(string propositionPhrase, string inputPhrase)
+    {
+        inputPhrase = StringUtilities.TrimSpecialFormatting(inputPhrase, new HashSet<char>(),
+           m_LeadingCharsForSpecialWords, m_SurroundingCharsForSpecialText);
+        propositionPhrase = StringUtilities.TrimSpecialFormatting(propositionPhrase, new HashSet<char>(),
+            m_LeadingCharsForSpecialWords, m_SurroundingCharsForSpecialText);
+
+        string outputText = "";
+        string[] splitProp = propositionPhrase.Split(' ');
+        string[] splitInput = inputPhrase.Split(' ');
+        int indexProp = 0;
+        int indexInput = 0;
+        while (indexProp < splitProp.Length)
+        {
+            if (indexInput < splitInput.Length)
+            {
+                int levenDistance = StringUtilities.LevenshteinDistance(splitInput[indexInput], splitProp[indexProp]);
+                float accuracy = Mathf.Max(0, 100f - (100f * (float)levenDistance / (float)splitProp[indexProp].Length));
+                float nextAccuracy = 0;
+                if (indexInput < splitInput.Length - 1)
+                {
+                    int nextLevenDistance = StringUtilities.LevenshteinDistance(splitInput[indexInput + 1], splitProp[indexProp]);
+                    nextAccuracy = Mathf.Max(0, 100f - (100f * (float)nextLevenDistance / (float)splitProp[indexProp].Length));
+                }
+
+                if (nextAccuracy > accuracy)
+                {
+                    outputText += string.Format("<color=#{0}>[?] </color>", ColorUtility.ToHtmlStringRGBA(m_ErrorColor));
+                    accuracy = nextAccuracy;
+                    indexInput++;
+                }
+
+                if (accuracy < m_MinAccuracy)
+                {
+                    outputText += string.Format("<color=#{0}>{1} </color>", ColorUtility.ToHtmlStringRGBA(m_ErrorColor), splitProp[indexProp]);
+                }
+                else if (accuracy < m_CorrectAccuracy)
+                {
+                    outputText += string.Format("<color=#{0}>{1} </color>", ColorUtility.ToHtmlStringRGBA(m_NotBadColor), splitProp[indexProp]);
+                }
+                else
+                {
+                    outputText += string.Format("<color=#{0}>{1} </color>", ColorUtility.ToHtmlStringRGBA(m_CorrectColor), splitProp[indexProp]);
+                }
+            } else
+            {
+                outputText += string.Format("<color=#{0}>[...] </color>", ColorUtility.ToHtmlStringRGBA(m_ErrorColor));
+            }
+            indexProp++;
+            indexInput++;
+        }
+        m_PropositionText.text = outputText;
+
     }
 }
