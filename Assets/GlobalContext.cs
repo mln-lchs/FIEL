@@ -30,13 +30,27 @@ public class GlobalContext : MonoBehaviour
     }
 
     public void SetContext(KeyValue kv) {
-        if (context.Contains(kv))
+        int i = context.FindIndex((KeyValue elmt) => kv.key.Equals(elmt.key));
+        if (i > -1)
         {
-            context[context.FindIndex((KeyValue elmt) => kv.key.Equals(elmt.key))] = kv;
+            context[i] = kv;
         } else
         {
             context.Add(kv);
         }
     }
-    
+
+    public string GetContextValue(string key)
+    {
+        int i = context.FindIndex((KeyValue elmt) => key.Equals(elmt.key));
+        if (i > -1)
+        {
+            return context[i].value;
+        }
+        else
+        {
+            return "";
+        }
+    }
+
 }

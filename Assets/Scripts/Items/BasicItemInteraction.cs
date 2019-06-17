@@ -36,7 +36,7 @@ public class BasicItemInteraction : MonoBehaviour
         GrabTypes startingGrabType = hand.GetGrabStarting();
         bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
 
-        if (interactable.attachedToHand == null && startingGrabType != GrabTypes.None)
+        if (interactable.attachedToHand == null && startingGrabType != GrabTypes.None && GlobalContext.Instance.GetContextValue("item_held").Equals("false"))
         {
             // Save our position/rotation so that we can restore it when we detach
             oldPosition = transform.position;
