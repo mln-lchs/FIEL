@@ -58,17 +58,24 @@ class WatsonAssistantService : MonoBehaviour
     [SerializeField]
     Canvas m_ResultsCanvas;
 
+    
+
     [SerializeField]
     List<KeyValue> initialContext;
+    [SerializeField]
+    List<string> greetingsPropositions = new List<string>();
+
+    List<string> m_listPropositions = new List<string>();
 
     SerializableDictionary<string, object> contextSkills;
 
     Text m_ResultsTextUI;
-
+    
     public string IAMUrl { set { m_IAMUrl = value; } }
     
     public string IAMKey { set { m_IAMKey = value; } }
     public string assistantId { set { m_AssistantId = value; } }
+    public List<string> listPropositions { get { return m_listPropositions; } }
 
 
     private void Awake()
@@ -83,6 +90,9 @@ class WatsonAssistantService : MonoBehaviour
     {
 
         StartCoroutine(TokenInit());
+
+        m_listPropositions.Clear();
+        m_listPropositions.AddRange(greetingsPropositions);
 
         m_Timer = 0f;
         m_ResultsCanvas.enabled = false;
@@ -189,12 +199,24 @@ class WatsonAssistantService : MonoBehaviour
             {
                 m_ResultsTextUI.text = text;
             }
+
+        }
+        if (response.Result.Output.Generic.Count > 1)
+        {
+            List<DialogNodeOutputOptionsElement> listOptions = response.Result.Output.Generic[1].Options;
+            m_listPropositions.Clear();
+            foreach (DialogNodeOutputOptionsElement elmt in listOptions)
+            {
+                m_listPropositions.Add(elmt.Value.Input.Text);
+            }
         }
 
         if (response.Result.Context.Skills != null)
         {
             contextSkills = response.Result.Context.Skills.ToObject<SerializableDictionary<string, object>>();
         }
+
+
     }
 
     public void SetContext(KeyValue kv)
