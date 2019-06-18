@@ -168,6 +168,8 @@ GameObject:
   - component: {fileID: 114471919324853036}
   - component: {fileID: 789563278352533125}
   - component: {fileID: 7793342048516948125}
+  - component: {fileID: 4793218547392644595}
+  - component: {fileID: 1520966021520617144}
   m_Layer: 0
   m_Name: WineBottle
   m_TagString: Untagged
@@ -315,6 +317,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemProperties: {fileID: 11400000, guid: eeb344d4eab6a564e84dc902f967bd67, type: 2}
+--- !u!65 &4793218547392644595
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112174935158326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.12227464, y: 0.11399419, z: 0.12227465}
+  m_Center: {x: -0.000000009313226, y: 0.061722536, z: -0.00041718595}
+--- !u!65 &1520966021520617144
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112174935158326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.12227464, y: 0.1651847, z: 0.12227465}
+  m_Center: {x: -0.000000009683784, y: 0.036127288, z: -0.0004171878}
 --- !u!1 &1262963071071174
 GameObject:
   m_ObjectHideFlags: 0

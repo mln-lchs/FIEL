@@ -66,6 +66,12 @@ public class PropositionsManager : MonoBehaviour
     LeftUI m_FallbackLeftUI;
 
     /// <summary>
+    /// List of sounds
+    /// </summary>
+    [SerializeField]
+    AudioClip[] clips;
+
+    /// <summary>
     /// List of propositions
     /// </summary>
     List<string> m_Propositions = new List<string>();
@@ -104,6 +110,9 @@ public class PropositionsManager : MonoBehaviour
     /// </summary>
     Dictionary<char, char> m_SurroundingCharsForSpecialText = new Dictionary<char, char> { { '[', ']' } };
 
+    // Audio source
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -119,6 +128,9 @@ public class PropositionsManager : MonoBehaviour
         m_IsInteractable = true;
         // Init propositions
         Reset();
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = clips[0];
     }
 
     // Update is called once per frame
@@ -128,12 +140,14 @@ public class PropositionsManager : MonoBehaviour
         {
             if (rightArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.RightArrow))
             {
+                audioSource.Play();
                 m_Index++;
                 if (m_Index > m_Propositions.Count) m_Index = 0;
                 SetPropositionText();
             }
             if (leftArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                audioSource.Play();
                 m_Index--;
                 if (m_Index < 0) m_Index = m_Propositions.Count;
                 SetPropositionText();

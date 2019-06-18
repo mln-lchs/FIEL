@@ -109,7 +109,13 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         [SerializeField]
         float m_LookAwayTimer = 10f;
-        
+
+        /// <summary>
+        /// List of sounds
+        /// </summary>
+        [SerializeField]
+        AudioClip[] clips;
+
 
         /// <summary>
         /// Camera of the player for raycasting
@@ -166,6 +172,9 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         bool m_IsRecording;
 
+        // Audio source
+        AudioSource audioSource;
+
 
 
         /// <summary>
@@ -212,6 +221,8 @@ namespace UnitySpeechToText.Widgets
             SetCanvasChildComponents();
             DisableSpeechUI();
             RegisterSpeechToTextServiceWidgetsCallbacks();
+
+            audioSource = GetComponent<AudioSource>();
         }
 
         /// <summary>
@@ -343,10 +354,14 @@ namespace UnitySpeechToText.Widgets
         {
             if (m_IsRecording)
             {
+                audioSource.clip = clips[1];
+                audioSource.Play();
                 StopRecording();
             }
             else
             {
+                audioSource.clip = clips[0];
+                audioSource.Play();
                 StartRecording();
             }
         }
