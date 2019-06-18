@@ -130,7 +130,6 @@ public class PropositionsManager : MonoBehaviour
         Reset();
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = clips[0];
     }
 
     // Update is called once per frame
@@ -140,6 +139,7 @@ public class PropositionsManager : MonoBehaviour
         {
             if (rightArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.RightArrow))
             {
+                audioSource.clip = clips[0];
                 audioSource.Play();
                 m_Index++;
                 if (m_Index > m_Propositions.Count) m_Index = 0;
@@ -147,6 +147,7 @@ public class PropositionsManager : MonoBehaviour
             }
             if (leftArrow.GetStateDown(handType) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                audioSource.clip = clips[0];
                 audioSource.Play();
                 m_Index--;
                 if (m_Index < 0) m_Index = m_Propositions.Count;
