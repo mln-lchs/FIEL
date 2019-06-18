@@ -9581,8 +9581,6 @@ GameObject:
   - component: {fileID: 4109854229580220257}
   - component: {fileID: 4109854229580220256}
   - component: {fileID: 4109854229580220259}
-  - component: {fileID: 4109854229580220258}
-  - component: {fileID: 4109854229580220285}
   - component: {fileID: 5916628739055736721}
   m_Layer: 9
   m_Name: Drone
@@ -9598,7 +9596,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4109854229580220287}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0.068, y: 0, z: -0.094}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
@@ -9617,7 +9615,7 @@ Transform:
   - {fileID: 4109854230540542285}
   m_Father: {fileID: 4109854230323051782}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!33 &4109854229580220264
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9672,7 +9670,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4109854229580220287}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 8e7ff86547235d74d900689195c58f15, type: 3}
   m_Controller: {fileID: 9100000, guid: abad03a559e2dc0409d0c32958cea30e, type: 2}
   m_CullingMode: 0
@@ -10032,48 +10030,6 @@ MonoBehaviour:
   SmoothPositionLerpRatio: 0.5
   SmoothRotationLerpRatio: 0.5
   SmoothScaleLerpRatio: 0.5
---- !u!114 &4109854229580220258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109854229580220287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c655338633f4544180b3d90a593ac17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagalongDistance: 2
-  EnforceDistance: 1
-  PositionUpdateSpeed: 9.8
-  SmoothMotion: 1
-  SmoothingFactor: 0.75
-  MinimumHorizontalOverlap: 0.1
-  TargetHorizontalOverlap: 1
-  MinimumVerticalOverlap: 0.1
-  TargetVerticalOverlap: 1
-  HorizontalRayCount: 3
-  VerticalRayCount: 3
-  MinimumTagalongDistance: 1
-  MaintainFixedSize: 1
-  DepthUpdateSpeed: 4
-  DebugDrawLines: 0
-  DebugPointLight: {fileID: 0}
---- !u!114 &4109854229580220285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109854229580220287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac8d5b128a1d8204fb76c86f47b75912, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PivotAxis: 0
-  TargetTransform: {fileID: 0}
 --- !u!114 &5916628739055736721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10098,6 +10054,10 @@ MonoBehaviour:
   - key: item_held
     value: false
     type: 0
+  greetingsPropositions:
+  - Hello!
+  - Can you help me?
+  - Who are you?
 --- !u!1 &4109854229584359394
 GameObject:
   m_ObjectHideFlags: 0
@@ -29456,8 +29416,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4109854229895360542}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.000000029802315}
-  m_LocalPosition: {x: 0, y: 0, z: 0.056000493}
+  m_LocalRotation: {x: 0.04278928, y: 0.000000059604645, z: 0.000000014901161, w: 0.9990842}
+  m_LocalPosition: {x: 0, y: 0, z: -0.3}
   m_LocalScale: {x: 0.0011978238, y: 0.0011978229, z: 0.0011978238}
   m_Children:
   - {fileID: 9025752284708638563}
@@ -29466,7 +29426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.73100007}
+  m_AnchoredPosition: {x: 0.062, y: 0.131}
   m_SizeDelta: {x: 1666, y: 964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4109854229895360541
@@ -39207,6 +39167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4109854230323051782}
+  - component: {fileID: 1610817134}
   m_Layer: 9
   m_Name: HoloBot
   m_TagString: Untagged
@@ -39230,6 +39191,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 144.1, z: 0}
+--- !u!114 &1610817134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109854230323051777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8d5b128a1d8204fb76c86f47b75912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PivotAxis: 0
+  TargetTransform: {fileID: 0}
 --- !u!1 &4109854230426946601
 GameObject:
   m_ObjectHideFlags: 0
