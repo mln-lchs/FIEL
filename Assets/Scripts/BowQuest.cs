@@ -28,7 +28,7 @@ public class BowQuest : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.layer == 8)
         {
             distanceOk = false;
         }
@@ -36,11 +36,16 @@ public class BowQuest : MonoBehaviour
 
     public void HitBullseye()
     {
-        Debug.Log("coucou");
+        
         if (distanceOk)
         {
+            Debug.Log("coucou");
             bullseyeHit++;
             QuestCleared();
+        }
+        else
+        {
+            Debug.Log("distance not ok");
         }
     }
 
@@ -50,6 +55,13 @@ public class BowQuest : MonoBehaviour
         {
             cleared = true;
             print("BOW QUEST CLEARED");
+
+            KeyValue kv;
+            kv.type = KeyValueType.Bool;
+            kv.key = "quest_drunkman";
+            kv.value = "true";
+
+            GlobalContext.Instance.SetContext(kv);
         }
     }
 
