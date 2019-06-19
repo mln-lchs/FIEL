@@ -178,14 +178,17 @@ public class PropositionsManager : MonoBehaviour
             if (accuracy < m_MinAccuracy)
             {
                 m_AccuracyText.color = m_ErrorColor;
+                m_LeftUI.SetTryAgainFeedback(true);
                 return "";
             } else if (accuracy < m_CorrectAccuracy)
             {
                 m_AccuracyText.color = m_NotBadColor;
+                m_LeftUI.SetGoodFeedback(true);
                 return m_Propositions[m_Index];
             } else
             {
                 m_AccuracyText.color = m_CorrectColor;
+                m_LeftUI.SetPerfectFeedback(true);
                 return m_Propositions[m_Index];
             }
         }
@@ -216,6 +219,7 @@ public class PropositionsManager : MonoBehaviour
         m_LeftArrowImage.enabled = true;
         m_RightArrowImage.enabled = true;
         m_AccuracyText.text = "";
+        m_LeftUI.ResetFeedbacks();
         m_Propositions.Clear();
         m_Propositions.AddRange(propositions);
         m_Index = 0;
