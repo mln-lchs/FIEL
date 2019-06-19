@@ -55,7 +55,7 @@ public class BowQuest : MonoBehaviour
 
     private void QuestCleared()
     {
-        if (bullseyeHit >= BULLSEYE_REQUIRED)
+        if (bullseyeHit >= BULLSEYE_REQUIRED && !cleared)
         {
             cleared = true;
             print("BOW QUEST CLEARED");
@@ -65,6 +65,7 @@ public class BowQuest : MonoBehaviour
             KeyValue kv;
             kv.type = KeyValueType.Bool;
             kv.key = "quest_drunkman";
+            kv.value = "true";
             kv.value = "true";
 
             GlobalContext.Instance.SetContext(kv);
