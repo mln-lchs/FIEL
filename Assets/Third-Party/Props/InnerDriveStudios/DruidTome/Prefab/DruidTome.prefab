@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2342368}
   - component: {fileID: 7534152744587178528}
   - component: {fileID: 5111523105780837983}
+  - component: {fileID: 7909516927277744429}
   m_Layer: 0
   m_Name: DruidTome
   m_TagString: Untagged
@@ -143,3 +144,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemProperties: {fileID: 11400000, guid: 4055b05f4b6516e4ab5f68fe7e95e452, type: 2}
+--- !u!65 &7909516927277744429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143842}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.39993855, y: 0.07833198, z: 0.2955175}
+  m_Center: {x: 0, y: 0, z: 0.01774963}

@@ -12,7 +12,8 @@ public class SpeakManager : MonoBehaviour
 
     public SteamVR_Input_Sources handType;
     public SteamVR_Action_Boolean speak;
-    
+    public SteamVR_Action_Boolean tpRobot;
+
     public KeyCode keyboardShortcut;
 
     bool m_CanSpeak;
@@ -38,16 +39,16 @@ public class SpeakManager : MonoBehaviour
             {
                 STTInteraction.OnRecordButtonClicked();
             }
-            if (m_CanSpawnRobot)
-            {
-                //On teleporte le robot vers le joueur
-                mrRobot.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
-            }
             if (m_CanSkip)
             {
                 STTInteraction.FinishSession();
             }
 
+        }
+        if (m_CanSpawnRobot && tpRobot.GetStateDown(handType))
+        {
+            //On teleporte le robot vers le joueur
+            mrRobot.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
         }
     }
 

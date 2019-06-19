@@ -9,7 +9,9 @@ public class BowQuest : MonoBehaviour
     private int bullseyeHit;
     private bool distanceOk = false;
     private bool cleared;
-
+    public AudioSource audioSource;
+    public AudioClip[] clips;
+    public ParticleSystem particleSystem;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class BowQuest : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.layer == 8)
         {
             distanceOk = false;
         }
@@ -36,20 +38,39 @@ public class BowQuest : MonoBehaviour
 
     public void HitBullseye()
     {
-        Debug.Log("coucou");
+        
         if (distanceOk)
         {
+            Debug.Log("coucou");
+            audioSource.clip = clips[0];
+            audioSource.Play();
             bullseyeHit++;
             QuestCleared();
+        }
+        else
+        {
+            Debug.Log("distance not ok");
         }
     }
 
     private void QuestCleared()
     {
-        if (bullseyeHit >= BULLSEYE_REQUIRED)
+        if (bullseyeHit >= BULLSEYE_REQUIRED && !cleared)
         {
             cleared = true;
             print("BOW QUEST CLEARED");
+            audioSource.clip = clips[1];
+            audioSource.Play();
+
+            KeyValue kv;
+            kv.type = KeyValueType.Bool;
+            kv.key = "quest_drunkman";
+            kv.value = "true";
+            kv.value = "true";
+
+            GlobalContext.Instance.SetContext(kv);
+
+            particleSystem.Play();
         }
     }
 

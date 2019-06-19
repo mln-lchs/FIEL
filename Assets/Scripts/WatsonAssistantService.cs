@@ -215,22 +215,22 @@ class WatsonAssistantService : MonoBehaviour
                 m_listPropositions.Add(elmt.Value.Input.Text);
             }
         }
-
+        
         if (response.Result.Context.Skills != null)
         {
             SerializableDictionary<string, object> tempContextSkills = response.Result.Context.Skills.ToObject<SerializableDictionary<string, object>>();
             object tempSkill = null;
-            (contextSkills as Dictionary<string, object>).TryGetValue("main skill", out tempSkill);
-            Debug.Log(tempSkill);
+            (tempContextSkills as Dictionary<string, object>).TryGetValue("main skill", out tempSkill);
+            tempSkill = (tempSkill as JObject).ToObject<Dictionary<string, object>>();
             object tempUserDefined = null;
             (tempSkill as Dictionary<string, object>).TryGetValue("user_defined", out tempUserDefined);
-
-
-
+            tempUserDefined = (tempUserDefined as JObject).ToObject<Dictionary<string, object>>();
+            
             Dictionary<string, object> mainSkill = new Dictionary<string, object>();
             mainSkill.Add("user_defined", tempUserDefined);
             contextSkills.Clear();
             contextSkills.Add("main skill", mainSkill);
+           
         }
 
 
@@ -246,6 +246,8 @@ class WatsonAssistantService : MonoBehaviour
         SetContextValue(kv, tempUserDefined as Dictionary<string, object>);
         
     }
+
+
 
     private void SetContextValue(KeyValue kv, Dictionary<string, object> userDefined)
     {
@@ -289,7 +291,6 @@ class WatsonAssistantService : MonoBehaviour
     {
         object tempSkill = null;
         (contextSkills as Dictionary<string, object>).TryGetValue("main skill", out tempSkill);
-        Debug.Log(tempSkill);
         object tempUserDefined = null;
         (tempSkill as Dictionary<string, object>).TryGetValue("user_defined", out tempUserDefined);
         foreach (KeyValue kv in GlobalContext.Instance.context)
