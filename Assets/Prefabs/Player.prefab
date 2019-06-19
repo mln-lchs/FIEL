@@ -2177,7 +2177,6 @@ RectTransform:
   m_LocalScale: {x: 0.0011978222, y: 0.0011978222, z: 0.0011978222}
   m_Children:
   - {fileID: 293589897396608036}
-  - {fileID: 449206193160976346}
   m_Father: {fileID: 3457929394340314233}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -2547,13 +2546,19 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ParticleSystem
       value: 
-      objectReference: {fileID: 357664644366667508}
+      objectReference: {fileID: 0}
     - target: {fileID: 22400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
+--- !u!224 &293589897396608036 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 293589897374208032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8973689105716344537 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8690813438074676985, guid: 05a81c3d5091440058129444d28322f3,
@@ -2566,81 +2571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4eeec6187837874fb1902a811492073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &293589897396608036 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 293589897374208032}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &447079444219305738
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3457929395482572918}
-    m_Modifications:
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655205912634366, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
-      propertyPath: m_Name
-      value: ConfettiDirectionalMix
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2910cdbfb71715e45a9cfd87c871e071, type: 3}
---- !u!198 &357664644366667508 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198992344369009150, guid: 2910cdbfb71715e45a9cfd87c871e071,
-    type: 3}
-  m_PrefabInstance: {fileID: 447079444219305738}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &449206193160976346 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4431881547409616, guid: 2910cdbfb71715e45a9cfd87c871e071,
-    type: 3}
-  m_PrefabInstance: {fileID: 447079444219305738}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1932261061728840520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2763,11 +2693,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3457929395347106808}
     m_Modifications:
-    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
-        type: 3}
-      propertyPath: m_Name
-      value: SFRightHandUI
-      objectReference: {fileID: 0}
     - target: {fileID: 5588224539153746377, guid: 4a9af2bb850c66243a1150bb9af5e145,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2873,6 +2798,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
+        type: 3}
+      propertyPath: m_Name
+      value: SFRightHandUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a9af2bb850c66243a1150bb9af5e145, type: 3}
 --- !u!224 &1771551203272969837 stripped
@@ -2888,11 +2818,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 996572040}
     m_Modifications:
-    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
-        type: 3}
-      propertyPath: m_Name
-      value: SFRightHandUI
-      objectReference: {fileID: 0}
     - target: {fileID: 5588224539153746377, guid: 4a9af2bb850c66243a1150bb9af5e145,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2997,6 +2922,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5588224539134067561, guid: 4a9af2bb850c66243a1150bb9af5e145,
+        type: 3}
+      propertyPath: m_Name
+      value: SFRightHandUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a9af2bb850c66243a1150bb9af5e145, type: 3}

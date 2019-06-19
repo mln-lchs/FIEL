@@ -230,7 +230,6 @@ MonoBehaviour:
   m_FeedbackTryAgain: {fileID: 1209175273651781918}
   m_FeedbackGood: {fileID: 9191622775302745874}
   m_FeedbackPerfect: {fileID: 4997371904683620809}
-  m_ParticleSystem: {fileID: 0}
 --- !u!1 &987881327221711271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,7 +1561,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 647674d679618c04090b5e67a9100a6f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
