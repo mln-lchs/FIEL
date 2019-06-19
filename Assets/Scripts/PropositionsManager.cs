@@ -233,7 +233,7 @@ public class PropositionsManager : MonoBehaviour
         m_AccuracyText.text = "";
         m_Propositions.Clear();
         m_Propositions.AddRange(propositions);
-        m_Index = 0;
+        m_Index = m_Propositions.Count;
         SetPropositionText();
     }
 
