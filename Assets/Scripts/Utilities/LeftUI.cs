@@ -15,6 +15,7 @@ public class LeftUI : MonoBehaviour
     public GameObject m_FeedbackTryAgain;
     public GameObject m_FeedbackGood;
     public GameObject m_FeedbackPerfect;
+    public ParticleSystem m_ParticleSystem;
 
     private void Start()
     {
@@ -42,6 +43,10 @@ public class LeftUI : MonoBehaviour
         m_FeedbackTryAgain.SetActive(false);
         m_FeedbackGood.SetActive(false);
         m_FeedbackPerfect.SetActive(active);
+        if (m_ParticleSystem != null)
+        {
+            m_ParticleSystem.Play();
+        }
     }
 
     public void ResetFeedbacks()

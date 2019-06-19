@@ -6,7 +6,7 @@ public class PlayEffectsOnEnable : MonoBehaviour
 {
     private ParticleSystem m_ParticleSystem;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_ParticleSystem = GetComponent<ParticleSystem>();
     }
