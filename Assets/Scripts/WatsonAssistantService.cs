@@ -131,6 +131,7 @@ class WatsonAssistantService : MonoBehaviour
     {
         m_SessionId = response.Result.SessionId;
         Debug.Log("SessionId :" + m_SessionId);
+        Invoke("KeepAlive", 240);
     }
 
     IEnumerator TokenInit()
@@ -297,6 +298,13 @@ class WatsonAssistantService : MonoBehaviour
         {
             SetContextValue(kv, tempUserDefined as Dictionary<string, object>);
         }
+    }
+
+    private void KeepAlive()
+    {
+        CancelInvoke();
+        SendMessageToAssistant("<KEEPALIVE>");
+        Invoke("KeepAlive", 240);
     }
 }
 
