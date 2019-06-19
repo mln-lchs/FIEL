@@ -479,6 +479,17 @@ PrefabInstance:
       propertyPath: context
       value: 
       objectReference: {fileID: 1322180721}
+    - target: {fileID: 8471314230524919939, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: umaRecipe
+      value: 
+      objectReference: {fileID: 11400000, guid: bf29d179d411b454c88b5de2c260f6b8,
+        type: 2}
+    - target: {fileID: 8471314230524919939, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: raceAnimationControllers.defaultAnimationController
+      value: 
+      objectReference: {fileID: 9100000, guid: eb280940c811fab4a9e3ddf09381c343, type: 2}
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: m_AssistantId
@@ -3836,6 +3847,17 @@ PrefabInstance:
       propertyPath: context
       value: 
       objectReference: {fileID: 1322180721}
+    - target: {fileID: 8471314230524919939, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: umaRecipe
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d8b26d89f211b549845013a10d42c10,
+        type: 2}
+    - target: {fileID: 8471314230524919939, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: raceAnimationControllers.defaultAnimationController
+      value: 
+      objectReference: {fileID: 9100000, guid: 61fe3aafd11c4f84a9bfddbec464fdbe, type: 2}
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: m_AssistantId
