@@ -9,6 +9,8 @@ public class BowQuest : MonoBehaviour
     private int bullseyeHit;
     private bool distanceOk = false;
     private bool cleared;
+    public AudioSource audioSource;
+    public AudioClip[] clips;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,8 @@ public class BowQuest : MonoBehaviour
         if (distanceOk)
         {
             Debug.Log("coucou");
+            audioSource.clip = clips[0];
+            audioSource.Play();
             bullseyeHit++;
             QuestCleared();
         }
@@ -55,6 +59,8 @@ public class BowQuest : MonoBehaviour
         {
             cleared = true;
             print("BOW QUEST CLEARED");
+            audioSource.clip = clips[1];
+            audioSource.Play();
 
             KeyValue kv;
             kv.type = KeyValueType.Bool;

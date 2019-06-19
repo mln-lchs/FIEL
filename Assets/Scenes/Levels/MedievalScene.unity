@@ -615,6 +615,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BULLSEYE_REQUIRED: 3
+  audioSource: {fileID: 1819242054}
+  clips:
+  - {fileID: 8300000, guid: b489f7d125d927240ad376fd983b1dc9, type: 3}
+  - {fileID: 8300000, guid: 0290b0a4f98d7f64ca4f938e3f13457c, type: 3}
 --- !u!65 &26550834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38486,6 +38490,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3457929394123728980, guid: dbcae1fa7c94fe54dac133fb4c747504,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3457929394102731780, guid: dbcae1fa7c94fe54dac133fb4c747504,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38607,11 +38616,6 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3457929394103213434, guid: dbcae1fa7c94fe54dac133fb4c747504,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3457929394123728980, guid: dbcae1fa7c94fe54dac133fb4c747504,
         type: 3}
       propertyPath: m_Layer
       value: 8
