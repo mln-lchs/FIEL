@@ -77,6 +77,8 @@ class WatsonAssistantService : MonoBehaviour
     public string assistantId { set { m_AssistantId = value; } }
     public List<string> listPropositions { get { return m_listPropositions; } }
 
+    // Prism indicating raycast collision
+    public GameObject prism;
 
     private void Awake()
     {
@@ -305,6 +307,16 @@ class WatsonAssistantService : MonoBehaviour
         CancelInvoke();
         SendMessageToAssistant("<KEEPALIVE>");
         Invoke("KeepAlive", 240);
+    }
+
+    public void ActivatePrism()
+    {
+        prism.SetActive(true);
+    }
+
+    public void DeactivatePrism()
+    {
+        prism.SetActive(false);
     }
 }
 
