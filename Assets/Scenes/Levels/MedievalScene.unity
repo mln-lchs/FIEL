@@ -831,14 +831,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26550832}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.156563, y: -2.964076, z: 1.7193434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 746020199}
   - {fileID: 1276997175}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 821211919}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &31901463
 PrefabInstance:
@@ -4026,12 +4026,22 @@ PrefabInstance:
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: m_AssistantId
-      value: 2d9c7153-e445-4233-aef1-3fc0d4b7c7e8
+      value: 6397e7cc-1a24-4f59-91d5-107c79df5f5b
       objectReference: {fileID: 0}
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: greetingsPropositions.Array.data[0]
       value: Hi!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: m_IAMUrl
+      value: https://iam.cloud.ibm.com/identity/token
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: m_IAMKey
+      value: Pnlgc7unR8Tt3-v_wxnCAvNpWNnwzatbvBzYT_dR-Qnf
       objectReference: {fileID: 0}
     - target: {fileID: 8471314230524919940, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
@@ -13910,7 +13920,12 @@ PrefabInstance:
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: m_AssistantId
-      value: 2d9c7153-e445-4233-aef1-3fc0d4b7c7e8
+      value: 3f7aefa8-26b2-418e-b25d-f58343f1e7a3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: m_IAMKey
+      value: Pnlgc7unR8Tt3-v_wxnCAvNpWNnwzatbvBzYT_dR-Qnf
       objectReference: {fileID: 0}
     - target: {fileID: 8471314230524919940, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
@@ -15208,6 +15223,7 @@ Transform:
   - {fileID: 1218652829}
   - {fileID: 1148494930}
   - {fileID: 2129910054}
+  - {fileID: 26550835}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19761,12 +19777,17 @@ PrefabInstance:
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: m_AssistantId
-      value: 2d9c7153-e445-4233-aef1-3fc0d4b7c7e8
+      value: dc054608-0e91-4a8f-8a8d-e4d315b2ea46
       objectReference: {fileID: 0}
     - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
       propertyPath: greetingsPropositions.Array.data[1]
       value: What's up?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+        type: 3}
+      propertyPath: m_IAMKey
+      value: Pnlgc7unR8Tt3-v_wxnCAvNpWNnwzatbvBzYT_dR-Qnf
       objectReference: {fileID: 0}
     - target: {fileID: 8471314230524919940, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
         type: 3}
