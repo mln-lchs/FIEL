@@ -11,7 +11,7 @@ public class Floating : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        y0 = transform.position.y;
+        y0 = transform.parent.position.y;
     }
 
     // Update is called once per frame
