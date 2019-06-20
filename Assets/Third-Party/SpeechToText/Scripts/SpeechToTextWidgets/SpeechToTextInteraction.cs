@@ -245,16 +245,18 @@ namespace UnitySpeechToText.Widgets
                 if (hit.collider.gameObject.layer == 9)
                 {
                     WatsonAssistantService previousAssistant = m_WatsonAssistant;
-                    m_WatsonAssistant = hit.collider.GetComponentInChildren<WatsonAssistantService>();
+                    WatsonAssistantService newAssistant = hit.collider.GetComponentInChildren<WatsonAssistantService>();
                     
-                    if (previousAssistant != m_WatsonAssistant)
+                    
+                    if (previousAssistant != newAssistant && !m_IsCurrentlyInSpeechToTextSession)
                     {
+                        
+                        m_WatsonAssistant = newAssistant;
                         m_WatsonAssistant.ActivatePrism();
                         if (previousAssistant != null)
                         {
                             previousAssistant.DeactivatePrism();
                         }
-                        
                         m_NPCTransform = hit.collider.transform;
                         m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
                         EnableSpeechUI();
