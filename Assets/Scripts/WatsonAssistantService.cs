@@ -182,40 +182,71 @@ class WatsonAssistantService : MonoBehaviour
 
     private void OnResponseReceived(DetailedResponse<MessageResponse> response, IBMError error)
     {
-        
-        if (response.Result.Output.Generic.Count > 0)
+        foreach (DialogRuntimeResponseGeneric resp in response.Result.Output.Generic)
         {
-            string text = response.Result.Output.Generic[0].Text;
-            m_Timer = m_CanvasTimeOut;
-            m_ResultsCanvas.enabled = true;
-            TextToSpeechService tts = GetComponent<TextToSpeechService>();
-            if (tts != null && tts.enabled)
+            if (resp.Text != null)
             {
-                tts.SpeakWithRESTAPI(text);
-            }
-
-            
-            if (text[0] == '<')
-            {
-                m_ResultsTextUI.text = "";
-                XElement parsedText = XElement.Parse(text);
-                foreach (XElement xelmt in parsedText.Descendants())
+                string text = resp.Text;
+                m_Timer = m_CanvasTimeOut;
+                m_ResultsCanvas.enabled = true;
+                TextToSpeechService tts = GetComponent<TextToSpeechService>();
+                if (tts != null && tts.enabled)
                 {
-                    m_ResultsTextUI.text = m_ResultsTextUI.text + xelmt.Value;
+                    tts.SpeakWithRESTAPI(text);
                 }
-            } else
-            {
-                m_ResultsTextUI.text = text;
-            }
 
-        }
-        if (response.Result.Output.Generic.Count > 1)
-        {
-            List<DialogNodeOutputOptionsElement> listOptions = response.Result.Output.Generic[1].Options;
-            m_listPropositions.Clear();
-            foreach (DialogNodeOutputOptionsElement elmt in listOptions)
+
+                if (text[0] == '<')
+                {
+                    m_ResultsTextUI.text = "";
+                    XElement parsedText = XElement.Parse(text);
+                    foreach (XElement xelmt in parsedText.Descendants())
+                    {
+                        m_ResultsTextUI.text = m_ResultsTextUI.text + xelmt.Value;
+                    }
+                }
+                else
+                {
+                    m_ResultsTextUI.text = text;
+                }
+
+            }
+            if (resp.Title != null)
             {
-                m_listPropositions.Add(elmt.Value.Input.Text);
+                if (resp.Title.Equals("Propositions"))
+                {
+                    List<DialogNodeOutputOptionsElement> listOptions = resp.Options;
+                    m_listPropositions.Clear();
+                    foreach (DialogNodeOutputOptionsElement elmt in listOptions)
+                    {
+                        m_listPropositions.Add(elmt.Value.Input.Text);
+                    }
+                }
+
+                if (resp.Title.Equals("GlobalContext"))
+                {
+                    List<DialogNodeOutputOptionsElement> listOptions = resp.Options;
+                    foreach (DialogNodeOutputOptionsElement elmt in listOptions)
+                    {
+                        KeyValue kv;
+                        kv.key = elmt.Label;
+                        kv.value = elmt.Value.Input.Text;
+                        int parsed;
+                        if (kv.value.Equals("true") || kv.value.Equals("false"))
+                        {
+                            kv.type = KeyValueType.Bool;
+                        }
+                        else if (int.TryParse(kv.value, out parsed))
+                        {
+                            kv.type = KeyValueType.Integer;
+                        }
+                        else
+                        {
+                            kv.type = KeyValueType.String;
+                        }
+                        GlobalContext.Instance.SetContext(kv);
+                    }
+                }
             }
         }
         
