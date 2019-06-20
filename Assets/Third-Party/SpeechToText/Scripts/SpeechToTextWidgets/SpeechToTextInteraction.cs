@@ -64,12 +64,6 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         [SerializeField]
         Material m_NotRecordingButtonMaterial;
-
-        /// <summary>
-        /// Canvas of the right hand
-        /// </summary>
-        [SerializeField]
-        Canvas m_RightHandUI;
         /// <summary>
         /// Canvas of the left hand
         /// </summary>
@@ -77,11 +71,6 @@ namespace UnitySpeechToText.Widgets
         Canvas m_LeftHandUI;
 
         [Header("Fallbacks Hands UI")]
-        /// <summary>
-        /// Canvas of the fallback right hand
-        /// </summary>
-        [SerializeField]
-        Canvas m_FallbackRightHandUI;
         /// <summary>
         /// Canvas of the fallback left hand
         /// </summary>
@@ -151,10 +140,6 @@ namespace UnitySpeechToText.Widgets
         /// </summary>
         Text m_LeftHandRecordInfoText;
         /// <summary>
-        /// Text UI for the right hand
-        /// </summary>
-        Text m_RightHandTextUI;
-        /// <summary>
         /// Image background for the left hand
         /// </summary>
         Image m_LeftHandTextBackground;
@@ -214,7 +199,6 @@ namespace UnitySpeechToText.Widgets
             // No-VR fallbacks
             if (SteamVR.instance == null)
             {
-                m_RightHandUI = m_FallbackRightHandUI;
                 m_LeftHandUI = m_FallbackLeftHandUI;
             }
 
@@ -267,26 +251,29 @@ namespace UnitySpeechToText.Widgets
                         m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
                         EnableSpeechUI();
                     }
+                    m_SpeakManager.SetCanSpawnRobot(false);
                     m_NPCTimer = m_LookAwayTimer;
+                } else
+                {
+                    m_SpeakManager.SetCanSpawnRobot(true);
                 }
+            } else
+            {
+                m_SpeakManager.SetCanSpawnRobot(true);
             }
         }
 
         void EnableSpeechUI()
         {
             m_SpeakManager.SetCanSpeak(true);
-            m_SpeakManager.SetCanSpawnRobot(false);
             m_SpeakManager.SetCanSkip(false);
-            m_RightHandUI.enabled = true;
             m_LeftHandUI.enabled = true;
         }
 
         void DisableSpeechUI()
         {
             m_SpeakManager.SetCanSpeak(false);
-            m_SpeakManager.SetCanSpawnRobot(true);
             m_SpeakManager.SetCanSkip(false);
-            m_RightHandUI.enabled = false;
             m_LeftHandUI.enabled = false;
         }
 
@@ -313,10 +300,6 @@ namespace UnitySpeechToText.Widgets
                 m_LeftHandRecordInfoText.text = m_NotRecordingText;
                 m_LeftHandMicImage.sprite = m_EnabledMicImage;
 
-            }
-            if (m_RightHandUI != null)
-            {
-                m_RightHandTextUI = m_RightHandUI.GetComponentInChildren<Text>();
             }
         }
 
@@ -382,7 +365,6 @@ namespace UnitySpeechToText.Widgets
         void OnSpeechToTextReceivedLastResponse(string finalResult)
         {
             SmartLogger.Log(DebugFlags.SpeechToTextWidgets, "Final Result " + finalResult);
-            m_RightHandTextUI.text = finalResult;
             string result = m_PropositionsManager.TestSelectedProposition(finalResult);
             if (!result.Equals(""))
             {
@@ -448,7 +430,6 @@ namespace UnitySpeechToText.Widgets
         {
             m_SpeakManager.SetCanSpeak(true);
             m_SpeakManager.SetCanSkip(false);
-            m_SpeakManager.SetCanSpawnRobot(false);
             m_LeftHandRecordInfoText.text = m_NotRecordingText;
             m_LeftHandMicImage.sprite = m_EnabledMicImage;
             m_LeftHandMicImage.material = m_EnabledMicMaterial;
@@ -461,7 +442,6 @@ namespace UnitySpeechToText.Widgets
         {
             m_SpeakManager.SetCanSpeak(false);
             m_SpeakManager.SetCanSkip(false);
-            m_SpeakManager.SetCanSpawnRobot(false);
             m_LeftHandRecordInfoText.text = m_WaitingForResponsesText;
             m_LeftHandMicImage.sprite = m_DisabledMicImage;
             m_LeftHandMicImage.material = m_DisabledMicMaterial;
@@ -473,7 +453,6 @@ namespace UnitySpeechToText.Widgets
             CancelInvoke("FinishSession");
 
             m_SpeakManager.SetCanSkip(true);
-            m_SpeakManager.SetCanSpawnRobot(false);
             m_SpeakManager.SetCanSpeak(false);
             m_LeftHandRecordInfoText.text = m_FeedbacksText;
 
