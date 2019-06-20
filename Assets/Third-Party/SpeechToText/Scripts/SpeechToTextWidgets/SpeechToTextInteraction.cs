@@ -395,6 +395,7 @@ namespace UnitySpeechToText.Widgets
                 m_IsRecording = true;
                 m_LeftHandRecordInfoText.text = m_RecordingText;
                 m_LeftHandTextBackground.material = m_RecordingButtonMaterial;
+                m_PropositionsManager.SetInteractable(false);
                 SmartLogger.Log(DebugFlags.SpeechToTextWidgets, "tell service widget to start recording");
                 m_SpeechToTextServiceWidget.StartRecording();
             }

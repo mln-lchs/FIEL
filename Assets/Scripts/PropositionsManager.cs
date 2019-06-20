@@ -167,6 +167,11 @@ public class PropositionsManager : MonoBehaviour
         }
     }
 
+    public void SetInteractable(bool interactable)
+    {
+        m_IsInteractable = interactable;
+    }
+
     /// <summary>
     /// Computes the accuracy (percentage) of the end text results in comparison to the given phrase, by using 
     /// the Levenshtein Distance between the two strings, and displays this percentage in the results text UI.
@@ -231,13 +236,21 @@ public class PropositionsManager : MonoBehaviour
     public void SetPropositions(List<string> propositions)
     {
         m_IsInteractable = true;
-        m_LeftArrowImage.enabled = true;
-        m_RightArrowImage.enabled = true;
+        
         m_AccuracyText.text = "";
         m_LeftUI.ResetFeedbacks();
         m_Propositions.Clear();
         m_Propositions.AddRange(propositions);
         m_Index = m_Propositions.Count;
+        if (m_Propositions.Count > 0)
+        {
+            m_LeftArrowImage.enabled = true;
+            m_RightArrowImage.enabled = true;
+        } else
+        {
+            m_LeftArrowImage.enabled = false;
+            m_RightArrowImage.enabled = false;
+        }
         SetPropositionText();
     }
 
