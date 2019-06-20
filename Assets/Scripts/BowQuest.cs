@@ -12,6 +12,8 @@ public class BowQuest : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip[] clips;
     public ParticleSystem particleSystem;
+    public WatsonAssistantService drunkMan;
+    public List<string> propositionsQuestFinished;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +71,7 @@ public class BowQuest : MonoBehaviour
             kv.value = "true";
 
             GlobalContext.Instance.SetContext(kv);
+            drunkMan.SetPropositions(propositionsQuestFinished);
 
             particleSystem.Play();
         }

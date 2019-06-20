@@ -26,7 +26,7 @@ public enum KeyValueType
     String
 }
 
-class WatsonAssistantService : MonoBehaviour
+public class WatsonAssistantService : MonoBehaviour
     {
     /// <summary>
     /// Watson assistant functionality
@@ -348,6 +348,11 @@ class WatsonAssistantService : MonoBehaviour
     public void DeactivatePrism()
     {
         prism.SetActive(false);
+    }
+
+    public void SetPropositions(List<string> propositions)
+    {
+        m_listPropositions = propositions;
     }
 }
 

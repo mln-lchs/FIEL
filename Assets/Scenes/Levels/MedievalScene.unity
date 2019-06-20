@@ -901,6 +901,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b489f7d125d927240ad376fd983b1dc9, type: 3}
   - {fileID: 8300000, guid: 0290b0a4f98d7f64ca4f938e3f13457c, type: 3}
   particleSystem: {fileID: 2025582308}
+  drunkMan: {fileID: 654642914}
+  propositionsQuestFinished:
+  - Stop stealing now!
+  - Are you impressed?
 --- !u!65 &26550834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12541,6 +12545,18 @@ Transform:
   m_Father: {fileID: 2711408458590394704}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 179.9997, z: -31.9429}
+--- !u!114 &654642914 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8471314230524919941, guid: 3e2b1cb15bc5a2549accb01a34c28f7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8471314230169959377}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee23de793074c647b632677d46abd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &665751395
 PrefabInstance:
   m_ObjectHideFlags: 0
