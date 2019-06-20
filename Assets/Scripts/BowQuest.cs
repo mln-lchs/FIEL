@@ -11,7 +11,7 @@ public class BowQuest : MonoBehaviour
     private bool cleared;
     public AudioSource audioSource;
     public AudioClip[] clips;
-
+    public ParticleSystem particleSystem;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +69,8 @@ public class BowQuest : MonoBehaviour
             kv.value = "true";
 
             GlobalContext.Instance.SetContext(kv);
+
+            particleSystem.Play();
         }
     }
 

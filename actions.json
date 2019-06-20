@@ -53,6 +53,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/Robot",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -157,7 +161,8 @@
       "/actions/platformer/in/Jump": "Jump",
       "/actions/default/in/Speak": "Speak",
       "/actions/default/in/LeftArrow": "Left Arrow",
-      "/actions/default/in/RightArrow": "Right Arrow"
+      "/actions/default/in/RightArrow": "Right Arrow",
+      "/actions/default/in/Robot": "Robot"
     }
   ]
 }

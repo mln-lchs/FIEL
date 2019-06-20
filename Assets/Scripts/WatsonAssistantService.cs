@@ -131,6 +131,7 @@ class WatsonAssistantService : MonoBehaviour
     {
         m_SessionId = response.Result.SessionId;
         Debug.Log("SessionId :" + m_SessionId);
+        Invoke("KeepAlive", 240);
     }
 
     IEnumerator TokenInit()
@@ -185,10 +186,10 @@ class WatsonAssistantService : MonoBehaviour
             string text = response.Result.Output.Generic[0].Text;
             m_Timer = m_CanvasTimeOut;
             m_ResultsCanvas.enabled = true;
-            TTSScript tts = GetComponent<TTSScript>();
+            TextToSpeechService tts = GetComponent<TextToSpeechService>();
             if (tts != null && tts.enabled)
             {
-                StartCoroutine(tts.CallTextToSpeech(text));
+                tts.SpeakWithRESTAPI(text);
             }
 
             
@@ -297,6 +298,13 @@ class WatsonAssistantService : MonoBehaviour
         {
             SetContextValue(kv, tempUserDefined as Dictionary<string, object>);
         }
+    }
+
+    private void KeepAlive()
+    {
+        CancelInvoke();
+        SendMessageToAssistant("<KEEPALIVE>");
+        Invoke("KeepAlive", 240);
     }
 }
 
