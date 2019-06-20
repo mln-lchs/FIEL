@@ -15,12 +15,12 @@ public class LeftUI : MonoBehaviour
     public GameObject m_FeedbackTryAgain;
     public GameObject m_FeedbackGood;
     public GameObject m_FeedbackPerfect;
+    public GameObject m_FeedbackSTTError;
 
     private void Start()
     {
-        m_FeedbackTryAgain.SetActive(false);
-        m_FeedbackGood.SetActive(false);
-        m_FeedbackPerfect.SetActive(false);
+        ResetFeedbacks();
+        m_FeedbackSTTError.SetActive(false);
     }
 
     public void SetTryAgainFeedback(bool active)
@@ -28,6 +28,7 @@ public class LeftUI : MonoBehaviour
         m_FeedbackTryAgain.SetActive(active);
         m_FeedbackGood.SetActive(false);
         m_FeedbackPerfect.SetActive(false);
+        m_FeedbackSTTError.SetActive(false);
     }
 
     public void SetGoodFeedback(bool active)
@@ -35,6 +36,7 @@ public class LeftUI : MonoBehaviour
         m_FeedbackTryAgain.SetActive(false);
         m_FeedbackGood.SetActive(active);
         m_FeedbackPerfect.SetActive(false);
+        m_FeedbackSTTError.SetActive(false);
     }
 
     public void SetPerfectFeedback(bool active)
@@ -42,6 +44,15 @@ public class LeftUI : MonoBehaviour
         m_FeedbackTryAgain.SetActive(false);
         m_FeedbackGood.SetActive(false);
         m_FeedbackPerfect.SetActive(active);
+        m_FeedbackSTTError.SetActive(false);
+    }
+
+    public void SetSTTErrorFeedback(bool active)
+    {
+        m_FeedbackTryAgain.SetActive(false);
+        m_FeedbackGood.SetActive(false);
+        m_FeedbackPerfect.SetActive(false);
+        m_FeedbackSTTError.SetActive(active);
     }
 
     public void ResetFeedbacks()

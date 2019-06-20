@@ -391,6 +391,7 @@ namespace UnitySpeechToText.Widgets
             if (!m_IsRecording)
             {
                 SmartLogger.Log(DebugFlags.SpeechToTextWidgets, "Start comparison recording");
+                m_LeftHandUI.GetComponentInChildren<LeftUI>().SetSTTErrorFeedback(false);
                 m_IsCurrentlyInSpeechToTextSession = true;
                 m_IsRecording = true;
                 m_LeftHandRecordInfoText.text = m_RecordingText;
@@ -414,7 +415,7 @@ namespace UnitySpeechToText.Widgets
                 // Disable all UI interaction until all responses have been received or after the specified timeout.
                 DisableSpeaking();
                 m_LeftHandTextBackground.material = m_NotRecordingButtonMaterial;
-                Invoke("FinishSession", m_ResponsesTimeoutInSeconds);
+                Invoke("TimeoutSession", m_ResponsesTimeoutInSeconds);
                 m_SpeechToTextServiceWidget.StopRecording();
             }
         }
@@ -425,6 +426,7 @@ namespace UnitySpeechToText.Widgets
         public void FinishSession()
         {
             CancelInvoke();
+            CancelInvoke("TimeoutSession");
             m_SpeakManager.SetCanSkip(false);
             m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
             if (m_IsCurrentlyInSpeechToTextSession)
@@ -462,6 +464,7 @@ namespace UnitySpeechToText.Widgets
         void WaitForFeedbacks()
         {
             CancelInvoke("FinishSession");
+            CancelInvoke("TimeoutSession");
 
             m_SpeakManager.SetCanSkip(true);
             m_SpeakManager.SetCanSpeak(false);
@@ -469,6 +472,15 @@ namespace UnitySpeechToText.Widgets
 
             Invoke("FinishSession", m_FeedbackTimeoutInSeconds);
         }
+
+        void TimeoutSession()
+        {
+            CancelInvoke();
+            Debug.Log("TIMEOUT");
+            m_LeftHandUI.GetComponentInChildren<LeftUI>().SetSTTErrorFeedback(true);
+            FinishSession();
+        }
+
 
     }
 }
