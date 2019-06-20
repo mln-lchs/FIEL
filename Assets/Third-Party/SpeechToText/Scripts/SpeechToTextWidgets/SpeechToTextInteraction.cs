@@ -228,8 +228,9 @@ namespace UnitySpeechToText.Widgets
             }
             else
             {
-                if (!m_IsCurrentlyInSpeechToTextSession)
+                if (!m_IsCurrentlyInSpeechToTextSession && m_WatsonAssistant != null)
                 {
+                    m_WatsonAssistant.DeactivatePrism();
                     m_WatsonAssistant = null;
                     DisableSpeechUI();
                 }
@@ -245,8 +246,15 @@ namespace UnitySpeechToText.Widgets
                 {
                     WatsonAssistantService previousAssistant = m_WatsonAssistant;
                     m_WatsonAssistant = hit.collider.GetComponentInChildren<WatsonAssistantService>();
+                    
                     if (previousAssistant != m_WatsonAssistant)
                     {
+                        m_WatsonAssistant.ActivatePrism();
+                        if (previousAssistant != null)
+                        {
+                            previousAssistant.DeactivatePrism();
+                        }
+                        
                         m_NPCTransform = hit.collider.transform;
                         m_PropositionsManager.SetPropositions(m_WatsonAssistant.listPropositions);
                         EnableSpeechUI();
